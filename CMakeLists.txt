@@ -10,7 +10,7 @@
 INCLUDE(build/cmake/version.cmake)
 INCLUDE(CheckCXXCompilerFlag)
 
-PROJECT(facialmask)
+PROJECT(glesbox)
 
 #----------------------------------------------------------------------------------------------------------------------
 #env config
