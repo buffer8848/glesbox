@@ -1,0 +1,420 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FEA251C81C23E876005EEA25 /* compare_common.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251A11C23E876005EEA25 /* compare_common.cc */; };
+		FEA251C91C23E876005EEA25 /* compare_gcc.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251A21C23E876005EEA25 /* compare_gcc.cc */; };
+		FEA251CA1C23E876005EEA25 /* compare_neon.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251A31C23E876005EEA25 /* compare_neon.cc */; };
+		FEA251CB1C23E876005EEA25 /* compare_neon64.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251A41C23E876005EEA25 /* compare_neon64.cc */; };
+		FEA251CC1C23E876005EEA25 /* compare_win.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251A51C23E876005EEA25 /* compare_win.cc */; };
+		FEA251CD1C23E876005EEA25 /* compare.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251A61C23E876005EEA25 /* compare.cc */; };
+		FEA251CE1C23E876005EEA25 /* convert_argb.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251A71C23E876005EEA25 /* convert_argb.cc */; };
+		FEA251CF1C23E876005EEA25 /* convert_from_argb.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251A81C23E876005EEA25 /* convert_from_argb.cc */; };
+		FEA251D01C23E876005EEA25 /* convert_from.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251A91C23E876005EEA25 /* convert_from.cc */; };
+		FEA251D11C23E876005EEA25 /* convert_jpeg.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251AA1C23E876005EEA25 /* convert_jpeg.cc */; };
+		FEA251D21C23E876005EEA25 /* convert_to_argb.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251AB1C23E876005EEA25 /* convert_to_argb.cc */; };
+		FEA251D31C23E876005EEA25 /* convert_to_i420.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251AC1C23E876005EEA25 /* convert_to_i420.cc */; };
+		FEA251D41C23E876005EEA25 /* convert.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251AD1C23E876005EEA25 /* convert.cc */; };
+		FEA251D51C23E876005EEA25 /* cpu_id.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251AE1C23E876005EEA25 /* cpu_id.cc */; };
+		FEA251D61C23E876005EEA25 /* mjpeg_decoder.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251AF1C23E876005EEA25 /* mjpeg_decoder.cc */; };
+		FEA251D71C23E876005EEA25 /* mjpeg_validate.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251B01C23E876005EEA25 /* mjpeg_validate.cc */; };
+		FEA251D81C23E876005EEA25 /* planar_functions.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251B11C23E876005EEA25 /* planar_functions.cc */; };
+		FEA251D91C23E876005EEA25 /* rotate_argb.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251B21C23E876005EEA25 /* rotate_argb.cc */; };
+		FEA251DA1C23E876005EEA25 /* rotate_mips.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251B31C23E876005EEA25 /* rotate_mips.cc */; };
+		FEA251DB1C23E876005EEA25 /* rotate_neon.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251B41C23E876005EEA25 /* rotate_neon.cc */; };
+		FEA251DC1C23E876005EEA25 /* rotate_neon64.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251B51C23E876005EEA25 /* rotate_neon64.cc */; };
+		FEA251DD1C23E876005EEA25 /* rotate.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251B61C23E876005EEA25 /* rotate.cc */; };
+		FEA251DE1C23E876005EEA25 /* row_any.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251B71C23E876005EEA25 /* row_any.cc */; };
+		FEA251DF1C23E876005EEA25 /* row_common.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251B81C23E876005EEA25 /* row_common.cc */; };
+		FEA251E01C23E876005EEA25 /* row_gcc.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251B91C23E876005EEA25 /* row_gcc.cc */; };
+		FEA251E11C23E876005EEA25 /* row_mips.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251BA1C23E876005EEA25 /* row_mips.cc */; };
+		FEA251E21C23E876005EEA25 /* row_neon.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251BB1C23E876005EEA25 /* row_neon.cc */; };
+		FEA251E31C23E876005EEA25 /* row_neon64.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251BC1C23E876005EEA25 /* row_neon64.cc */; };
+		FEA251E41C23E876005EEA25 /* row_win.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251BD1C23E876005EEA25 /* row_win.cc */; };
+		FEA251E51C23E876005EEA25 /* scale_any.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251BE1C23E876005EEA25 /* scale_any.cc */; };
+		FEA251E61C23E876005EEA25 /* scale_argb.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251BF1C23E876005EEA25 /* scale_argb.cc */; };
+		FEA251E71C23E876005EEA25 /* scale_common.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251C01C23E876005EEA25 /* scale_common.cc */; };
+		FEA251E81C23E876005EEA25 /* scale_gcc.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251C11C23E876005EEA25 /* scale_gcc.cc */; };
+		FEA251E91C23E876005EEA25 /* scale_mips.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251C21C23E876005EEA25 /* scale_mips.cc */; };
+		FEA251EA1C23E876005EEA25 /* scale_neon.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251C31C23E876005EEA25 /* scale_neon.cc */; };
+		FEA251EB1C23E876005EEA25 /* scale_neon64.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251C41C23E876005EEA25 /* scale_neon64.cc */; };
+		FEA251EC1C23E876005EEA25 /* scale_win.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251C51C23E876005EEA25 /* scale_win.cc */; };
+		FEA251ED1C23E876005EEA25 /* scale.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251C61C23E876005EEA25 /* scale.cc */; };
+		FEA251EE1C23E876005EEA25 /* video_common.cc in Sources */ = {isa = PBXBuildFile; fileRef = FEA251C71C23E876005EEA25 /* video_common.cc */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FEA251911C23E807005EEA25 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		FEA251931C23E807005EEA25 /* libyuv.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libyuv.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FEA2519F1C23E851005EEA25 /* libyuv.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = libyuv.h; path = ../../../include/libyuv.h; sourceTree = "<group>"; };
+		FEA251A11C23E876005EEA25 /* compare_common.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = compare_common.cc; path = ../../src/compare_common.cc; sourceTree = "<group>"; };
+		FEA251A21C23E876005EEA25 /* compare_gcc.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = compare_gcc.cc; path = ../../src/compare_gcc.cc; sourceTree = "<group>"; };
+		FEA251A31C23E876005EEA25 /* compare_neon.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = compare_neon.cc; path = ../../src/compare_neon.cc; sourceTree = "<group>"; };
+		FEA251A41C23E876005EEA25 /* compare_neon64.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = compare_neon64.cc; path = ../../src/compare_neon64.cc; sourceTree = "<group>"; };
+		FEA251A51C23E876005EEA25 /* compare_win.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = compare_win.cc; path = ../../src/compare_win.cc; sourceTree = "<group>"; };
+		FEA251A61C23E876005EEA25 /* compare.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = compare.cc; path = ../../src/compare.cc; sourceTree = "<group>"; };
+		FEA251A71C23E876005EEA25 /* convert_argb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = convert_argb.cc; path = ../../src/convert_argb.cc; sourceTree = "<group>"; };
+		FEA251A81C23E876005EEA25 /* convert_from_argb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = convert_from_argb.cc; path = ../../src/convert_from_argb.cc; sourceTree = "<group>"; };
+		FEA251A91C23E876005EEA25 /* convert_from.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = convert_from.cc; path = ../../src/convert_from.cc; sourceTree = "<group>"; };
+		FEA251AA1C23E876005EEA25 /* convert_jpeg.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = convert_jpeg.cc; path = ../../src/convert_jpeg.cc; sourceTree = "<group>"; };
+		FEA251AB1C23E876005EEA25 /* convert_to_argb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = convert_to_argb.cc; path = ../../src/convert_to_argb.cc; sourceTree = "<group>"; };
+		FEA251AC1C23E876005EEA25 /* convert_to_i420.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = convert_to_i420.cc; path = ../../src/convert_to_i420.cc; sourceTree = "<group>"; };
+		FEA251AD1C23E876005EEA25 /* convert.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = convert.cc; path = ../../src/convert.cc; sourceTree = "<group>"; };
+		FEA251AE1C23E876005EEA25 /* cpu_id.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cpu_id.cc; path = ../../src/cpu_id.cc; sourceTree = "<group>"; };
+		FEA251AF1C23E876005EEA25 /* mjpeg_decoder.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mjpeg_decoder.cc; path = ../../src/mjpeg_decoder.cc; sourceTree = "<group>"; };
+		FEA251B01C23E876005EEA25 /* mjpeg_validate.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mjpeg_validate.cc; path = ../../src/mjpeg_validate.cc; sourceTree = "<group>"; };
+		FEA251B11C23E876005EEA25 /* planar_functions.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = planar_functions.cc; path = ../../src/planar_functions.cc; sourceTree = "<group>"; };
+		FEA251B21C23E876005EEA25 /* rotate_argb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rotate_argb.cc; path = ../../src/rotate_argb.cc; sourceTree = "<group>"; };
+		FEA251B31C23E876005EEA25 /* rotate_mips.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rotate_mips.cc; path = ../../src/rotate_mips.cc; sourceTree = "<group>"; };
+		FEA251B41C23E876005EEA25 /* rotate_neon.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rotate_neon.cc; path = ../../src/rotate_neon.cc; sourceTree = "<group>"; };
+		FEA251B51C23E876005EEA25 /* rotate_neon64.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rotate_neon64.cc; path = ../../src/rotate_neon64.cc; sourceTree = "<group>"; };
+		FEA251B61C23E876005EEA25 /* rotate.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rotate.cc; path = ../../src/rotate.cc; sourceTree = "<group>"; };
+		FEA251B71C23E876005EEA25 /* row_any.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = row_any.cc; path = ../../src/row_any.cc; sourceTree = "<group>"; };
+		FEA251B81C23E876005EEA25 /* row_common.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = row_common.cc; path = ../../src/row_common.cc; sourceTree = "<group>"; };
+		FEA251B91C23E876005EEA25 /* row_gcc.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = row_gcc.cc; path = ../../src/row_gcc.cc; sourceTree = "<group>"; };
+		FEA251BA1C23E876005EEA25 /* row_mips.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = row_mips.cc; path = ../../src/row_mips.cc; sourceTree = "<group>"; };
+		FEA251BB1C23E876005EEA25 /* row_neon.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = row_neon.cc; path = ../../src/row_neon.cc; sourceTree = "<group>"; };
+		FEA251BC1C23E876005EEA25 /* row_neon64.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = row_neon64.cc; path = ../../src/row_neon64.cc; sourceTree = "<group>"; };
+		FEA251BD1C23E876005EEA25 /* row_win.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = row_win.cc; path = ../../src/row_win.cc; sourceTree = "<group>"; };
+		FEA251BE1C23E876005EEA25 /* scale_any.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scale_any.cc; path = ../../src/scale_any.cc; sourceTree = "<group>"; };
+		FEA251BF1C23E876005EEA25 /* scale_argb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scale_argb.cc; path = ../../src/scale_argb.cc; sourceTree = "<group>"; };
+		FEA251C01C23E876005EEA25 /* scale_common.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scale_common.cc; path = ../../src/scale_common.cc; sourceTree = "<group>"; };
+		FEA251C11C23E876005EEA25 /* scale_gcc.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scale_gcc.cc; path = ../../src/scale_gcc.cc; sourceTree = "<group>"; };
+		FEA251C21C23E876005EEA25 /* scale_mips.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scale_mips.cc; path = ../../src/scale_mips.cc; sourceTree = "<group>"; };
+		FEA251C31C23E876005EEA25 /* scale_neon.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scale_neon.cc; path = ../../src/scale_neon.cc; sourceTree = "<group>"; };
+		FEA251C41C23E876005EEA25 /* scale_neon64.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scale_neon64.cc; path = ../../src/scale_neon64.cc; sourceTree = "<group>"; };
+		FEA251C51C23E876005EEA25 /* scale_win.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scale_win.cc; path = ../../src/scale_win.cc; sourceTree = "<group>"; };
+		FEA251C61C23E876005EEA25 /* scale.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scale.cc; path = ../../src/scale.cc; sourceTree = "<group>"; };
+		FEA251C71C23E876005EEA25 /* video_common.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = video_common.cc; path = ../../src/video_common.cc; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FEA251901C23E807005EEA25 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FEA2518A1C23E807005EEA25 = {
+			isa = PBXGroup;
+			children = (
+				FEA251A01C23E859005EEA25 /* src */,
+				FEA251951C23E807005EEA25 /* include */,
+				FEA251941C23E807005EEA25 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FEA251941C23E807005EEA25 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FEA251931C23E807005EEA25 /* libyuv.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FEA251951C23E807005EEA25 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				FEA2519F1C23E851005EEA25 /* libyuv.h */,
+			);
+			name = include;
+			path = libyuv;
+			sourceTree = "<group>";
+		};
+		FEA251A01C23E859005EEA25 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				FEA251A11C23E876005EEA25 /* compare_common.cc */,
+				FEA251A21C23E876005EEA25 /* compare_gcc.cc */,
+				FEA251A31C23E876005EEA25 /* compare_neon.cc */,
+				FEA251A41C23E876005EEA25 /* compare_neon64.cc */,
+				FEA251A51C23E876005EEA25 /* compare_win.cc */,
+				FEA251A61C23E876005EEA25 /* compare.cc */,
+				FEA251A71C23E876005EEA25 /* convert_argb.cc */,
+				FEA251A81C23E876005EEA25 /* convert_from_argb.cc */,
+				FEA251A91C23E876005EEA25 /* convert_from.cc */,
+				FEA251AA1C23E876005EEA25 /* convert_jpeg.cc */,
+				FEA251AB1C23E876005EEA25 /* convert_to_argb.cc */,
+				FEA251AC1C23E876005EEA25 /* convert_to_i420.cc */,
+				FEA251AD1C23E876005EEA25 /* convert.cc */,
+				FEA251AE1C23E876005EEA25 /* cpu_id.cc */,
+				FEA251AF1C23E876005EEA25 /* mjpeg_decoder.cc */,
+				FEA251B01C23E876005EEA25 /* mjpeg_validate.cc */,
+				FEA251B11C23E876005EEA25 /* planar_functions.cc */,
+				FEA251B21C23E876005EEA25 /* rotate_argb.cc */,
+				FEA251B31C23E876005EEA25 /* rotate_mips.cc */,
+				FEA251B41C23E876005EEA25 /* rotate_neon.cc */,
+				FEA251B51C23E876005EEA25 /* rotate_neon64.cc */,
+				FEA251B61C23E876005EEA25 /* rotate.cc */,
+				FEA251B71C23E876005EEA25 /* row_any.cc */,
+				FEA251B81C23E876005EEA25 /* row_common.cc */,
+				FEA251B91C23E876005EEA25 /* row_gcc.cc */,
+				FEA251BA1C23E876005EEA25 /* row_mips.cc */,
+				FEA251BB1C23E876005EEA25 /* row_neon.cc */,
+				FEA251BC1C23E876005EEA25 /* row_neon64.cc */,
+				FEA251BD1C23E876005EEA25 /* row_win.cc */,
+				FEA251BE1C23E876005EEA25 /* scale_any.cc */,
+				FEA251BF1C23E876005EEA25 /* scale_argb.cc */,
+				FEA251C01C23E876005EEA25 /* scale_common.cc */,
+				FEA251C11C23E876005EEA25 /* scale_gcc.cc */,
+				FEA251C21C23E876005EEA25 /* scale_mips.cc */,
+				FEA251C31C23E876005EEA25 /* scale_neon.cc */,
+				FEA251C41C23E876005EEA25 /* scale_neon64.cc */,
+				FEA251C51C23E876005EEA25 /* scale_win.cc */,
+				FEA251C61C23E876005EEA25 /* scale.cc */,
+				FEA251C71C23E876005EEA25 /* video_common.cc */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FEA251921C23E807005EEA25 /* yuv */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FEA2519C1C23E807005EEA25 /* Build configuration list for PBXNativeTarget "yuv" */;
+			buildPhases = (
+				FEA2518F1C23E807005EEA25 /* Sources */,
+				FEA251901C23E807005EEA25 /* Frameworks */,
+				FEA251911C23E807005EEA25 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = yuv;
+			productName = libyuv;
+			productReference = FEA251931C23E807005EEA25 /* libyuv.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FEA2518B1C23E807005EEA25 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = intel;
+				TargetAttributes = {
+					FEA251921C23E807005EEA25 = {
+						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = F8FEJ48JCE;
+					};
+				};
+			};
+			buildConfigurationList = FEA2518E1C23E807005EEA25 /* Build configuration list for PBXProject "libyuv" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = FEA2518A1C23E807005EEA25;
+			productRefGroup = FEA251941C23E807005EEA25 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FEA251921C23E807005EEA25 /* yuv */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FEA2518F1C23E807005EEA25 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FEA251E21C23E876005EEA25 /* row_neon.cc in Sources */,
+				FEA251D21C23E876005EEA25 /* convert_to_argb.cc in Sources */,
+				FEA251E61C23E876005EEA25 /* scale_argb.cc in Sources */,
+				FEA251DF1C23E876005EEA25 /* row_common.cc in Sources */,
+				FEA251D71C23E876005EEA25 /* mjpeg_validate.cc in Sources */,
+				FEA251E41C23E876005EEA25 /* row_win.cc in Sources */,
+				FEA251ED1C23E876005EEA25 /* scale.cc in Sources */,
+				FEA251EE1C23E876005EEA25 /* video_common.cc in Sources */,
+				FEA251E81C23E876005EEA25 /* scale_gcc.cc in Sources */,
+				FEA251CA1C23E876005EEA25 /* compare_neon.cc in Sources */,
+				FEA251DC1C23E876005EEA25 /* rotate_neon64.cc in Sources */,
+				FEA251CE1C23E876005EEA25 /* convert_argb.cc in Sources */,
+				FEA251D31C23E876005EEA25 /* convert_to_i420.cc in Sources */,
+				FEA251D41C23E876005EEA25 /* convert.cc in Sources */,
+				FEA251CD1C23E876005EEA25 /* compare.cc in Sources */,
+				FEA251E91C23E876005EEA25 /* scale_mips.cc in Sources */,
+				FEA251E31C23E876005EEA25 /* row_neon64.cc in Sources */,
+				FEA251DD1C23E876005EEA25 /* rotate.cc in Sources */,
+				FEA251CB1C23E876005EEA25 /* compare_neon64.cc in Sources */,
+				FEA251D81C23E876005EEA25 /* planar_functions.cc in Sources */,
+				FEA251EC1C23E876005EEA25 /* scale_win.cc in Sources */,
+				FEA251C81C23E876005EEA25 /* compare_common.cc in Sources */,
+				FEA251D11C23E876005EEA25 /* convert_jpeg.cc in Sources */,
+				FEA251EB1C23E876005EEA25 /* scale_neon64.cc in Sources */,
+				FEA251EA1C23E876005EEA25 /* scale_neon.cc in Sources */,
+				FEA251D61C23E876005EEA25 /* mjpeg_decoder.cc in Sources */,
+				FEA251E71C23E876005EEA25 /* scale_common.cc in Sources */,
+				FEA251DB1C23E876005EEA25 /* rotate_neon.cc in Sources */,
+				FEA251E51C23E876005EEA25 /* scale_any.cc in Sources */,
+				FEA251D01C23E876005EEA25 /* convert_from.cc in Sources */,
+				FEA251E11C23E876005EEA25 /* row_mips.cc in Sources */,
+				FEA251C91C23E876005EEA25 /* compare_gcc.cc in Sources */,
+				FEA251CC1C23E876005EEA25 /* compare_win.cc in Sources */,
+				FEA251DA1C23E876005EEA25 /* rotate_mips.cc in Sources */,
+				FEA251E01C23E876005EEA25 /* row_gcc.cc in Sources */,
+				FEA251CF1C23E876005EEA25 /* convert_from_argb.cc in Sources */,
+				FEA251D91C23E876005EEA25 /* rotate_argb.cc in Sources */,
+				FEA251D51C23E876005EEA25 /* cpu_id.cc in Sources */,
+				FEA251DE1C23E876005EEA25 /* row_any.cc in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		FEA2519A1C23E807005EEA25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		FEA2519B1C23E807005EEA25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FEA2519D1C23E807005EEA25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CONFIGURATION_BUILD_DIR = ../../lib/ios;
+				HEADER_SEARCH_PATHS = ../../include;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		FEA2519E1C23E807005EEA25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CONFIGURATION_BUILD_DIR = ../../lib/ios;
+				HEADER_SEARCH_PATHS = ../../include;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FEA2518E1C23E807005EEA25 /* Build configuration list for PBXProject "libyuv" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FEA2519A1C23E807005EEA25 /* Debug */,
+				FEA2519B1C23E807005EEA25 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FEA2519C1C23E807005EEA25 /* Build configuration list for PBXNativeTarget "yuv" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FEA2519D1C23E807005EEA25 /* Debug */,
+				FEA2519E1C23E807005EEA25 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FEA2518B1C23E807005EEA25 /* Project object */;
+}
