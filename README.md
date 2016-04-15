@@ -1,8 +1,8 @@
 glesbox
 ====
 
- GBL(Opengles Box Library for native GUI on windows, linux, android, iOS etc)
- GBL is not a render engine, just a simple library for quickly devloping opengles code on a project without opengles env.
+  GBL(Opengles Box Library for native GUI on windows, linux, android, iOS etc)
+  GBL is not a render engine, just a simple library for quickly devloping opengles code on a project without opengles env.
 
 ## keywords
  - support online render(render in screen directly) and offline render(render on texture and output into an image)
