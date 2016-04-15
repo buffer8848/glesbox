@@ -7,31 +7,55 @@
 
 #include "libyuv.h"
 
+#include "platform.hpp"
+#include "SimpleImage.hpp"
+
 //-------------------------------------------------------------------------------------------------
 namespace libgb {
 
-GlesBox::GlesBox() : 
-  width_(0), height_(0), display_(nullptr), surface_(nullptr),
-  context_(nullptr), config_(nullptr), framebuffer_old_(0),
-  framebuffer_(0), texture_render_(0), depth_render_(0), frame_data_(nullptr) {
+struct GlesBox::core {
+  uint32_t width_;
+  uint32_t height_;
+  EGLDisplay display_;
+  EGLSurface surface_;
+  EGLContext context_;
+  EGLConfig config_;
+
+  GLint viewport_old_[4];
+  GLuint framebuffer_old_;
+  GLuint framebuffer_;
+  GLuint texture_render_;
+  GLuint depth_render_;
+  uint8_t *frame_data_;
+  SimpleImage frameimage_;
+
+  core() : width_(0), height_(0), display_(nullptr), surface_(nullptr),
+    context_(nullptr), config_(nullptr), framebuffer_old_(0),
+    framebuffer_(0), texture_render_(0), depth_render_(0), frame_data_(nullptr) {
+  }
+  ~core() {
+  }
+};
+
+GlesBox::GlesBox() : core_(new core()){
 }
 
 GlesBox::~GlesBox() {
   if (hasEgl())
-    bindEGLContext(width_, height_, 0);
+    bindEGLContext(core_->width_, core_->height_, 0);
   releaseFrameBuffer();
 
-  if (surface_ != nullptr)
-    eglDestroySurface(display_, surface_);
-  surface_ = nullptr;
-  if (context_ != nullptr)
-    eglDestroyContext(display_, context_);
-  context_ = nullptr;
-  display_ = nullptr;
+  if (core_->surface_ != nullptr)
+    eglDestroySurface(core_->display_, core_->surface_);
+  core_->surface_ = nullptr;
+  if (core_->context_ != nullptr)
+    eglDestroyContext(core_->display_, core_->context_);
+  core_->context_ = nullptr;
+  core_->display_ = nullptr;
   if (hasEgl())
     unbindEGLContext();
-  width_ = 0;
-  height_ = 0;
+  core_->width_ = 0;
+  core_->height_ = 0;
 }
 
 bool GlesBox::draw_begin(const GBConfig& conf) {
@@ -111,7 +135,7 @@ bool GlesBox::draw_end(GBConfig& conf) {
 
     switch(conf.offline_type) {
     case GB_IMAGE_YUV420:
-      libyuv::ARGBToI420((uint8*)image, width_*4,
+      libyuv::ARGBToI420((uint8*)image, core_->width_*4,
         conf.offline_data, conf.offline_widthstep,
         conf.offline_data + conf.offline_widthstep * conf.offline_height,
         conf.offline_widthstep >> 1,
@@ -120,11 +144,11 @@ bool GlesBox::draw_end(GBConfig& conf) {
         conf.offline_width, conf.offline_height);
       break;
     case GB_IMAGE_RGB24:
-      libyuv::ARGBToRGB24((uint8*)image, width_*4,
+      libyuv::ARGBToRGB24((uint8*)image, core_->width_*4,
         conf.offline_data, conf.offline_widthstep, conf.offline_width, conf.offline_height);
       break;
     case GB_IMAGE_RGBA32:
-      memcpy(conf.offline_data, image, width_*height_*4);
+      memcpy(conf.offline_data, image, core_->width_*core_->height_*4);
       break;
     case GB_IMAGE_YUY2:
       LOGE("glesbox: will support this image format later.");
@@ -144,17 +168,17 @@ bool GlesBox::draw_end(GBConfig& conf) {
 
 //-------------------------------------------------------------------------------------------------
 bool GlesBox::bindEGLContext(uint32_t width, uint32_t height, uint64_t native_windows_id) {
-  if (display_ == nullptr) {
+  if (core_->display_ == nullptr) {
      // Get Display
-    display_ = eglGetDisplay(EGL_DEFAULT_DISPLAY);
-    if ( display_ == EGL_NO_DISPLAY ) {
+    core_->display_ = eglGetDisplay(EGL_DEFAULT_DISPLAY);
+    if (core_->display_ == EGL_NO_DISPLAY) {
       LOGE("Cann't get EGL display on native windows.");
       return false;
     }
 
     // Initialize EGL
     EGLint majorVersion(0), minorVersion(0);
-    if ( !eglInitialize(display_, &majorVersion, &minorVersion) ) {
+    if (!eglInitialize(core_->display_, &majorVersion, &minorVersion)) {
       LOGE("Cann't eglInitialize EGL display.");
       return false;
     }
@@ -162,7 +186,7 @@ bool GlesBox::bindEGLContext(uint32_t width, uint32_t height, uint64_t native_wi
 
     // Get configs
     EGLint numConfigs(0);
-    if ( !eglGetConfigs(display_, NULL, 0, &numConfigs) ) {
+    if (!eglGetConfigs(core_->display_, NULL, 0, &numConfigs)) {
       LOGE("eglGetConfigs fail.");
       return false;
     }
@@ -177,28 +201,29 @@ bool GlesBox::bindEGLContext(uint32_t width, uint32_t height, uint64_t native_wi
       EGL_ALPHA_SIZE, 8,
       EGL_NONE
     };
-    if ( !eglChooseConfig(display_, attribList, &config_, 1, &numConfigs) ) {
+    if (!eglChooseConfig(core_->display_, attribList, &core_->config_, 1, &numConfigs)) {
       LOGE("eglChooseConfig fail.");
       return false;
     }
 
     createSurface(width, height, native_windows_id);
     // Create a GL context
-    EGLint contextAttribs[] = { EGL_CONTEXT_CLIENT_VERSION, 2, EGL_NONE, EGL_NONE };
-    context_ = eglCreateContext(display_, config_, EGL_NO_CONTEXT, contextAttribs );
-    if ( context_ == EGL_NO_CONTEXT ) {
+    EGLint contextAttribs[] = {EGL_CONTEXT_CLIENT_VERSION, 2, EGL_NONE, EGL_NONE};
+    core_->context_ = 
+      eglCreateContext(core_->display_, core_->config_, EGL_NO_CONTEXT, contextAttribs);
+    if (core_->context_ == EGL_NO_CONTEXT) {
       LOGE("eglCreateContext fail.");
       return false;
     }
   }
 
   //renew a surface because of size changed
-  if (width_ != width || height_ != height) {
+  if (core_->width_ != width || core_->height_ != height) {
     createSurface(width, height, native_windows_id);
   }
 
   // Make the context current
-  if ( !eglMakeCurrent(display_, surface_, surface_, context_) ) {
+  if ( !eglMakeCurrent(core_->display_, core_->surface_, core_->surface_, core_->context_) ) {
     LOGE("eglMakeCurrent fail.");
     return false;
   }
@@ -207,34 +232,34 @@ bool GlesBox::bindEGLContext(uint32_t width, uint32_t height, uint64_t native_wi
 }
 
 void GlesBox::unbindEGLContext() {
-  if (display_ != nullptr)
-    eglSwapBuffers(display_, surface_);
-  eglMakeCurrent(display_, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
+  if (core_->display_ != nullptr)
+    eglSwapBuffers(core_->display_, core_->surface_);
+  //eglMakeCurrent(core_->display_, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
 }
 
 bool GlesBox::createSurface(uint32_t width, uint32_t height, uint64_t native_windows_id) {
-  if (surface_ != nullptr) {
-    eglDestroySurface(surface_, surface_);
-    surface_ = nullptr;
+  if (core_->surface_ != nullptr) {
+    eglDestroySurface(core_->surface_, core_->surface_);
+    core_->surface_ = nullptr;
   }
 
   // Create a surface
-  width_ = width;
-  height_ = height;
+  core_->width_ = width;
+  core_->height_ = height;
   EGLint PBufAttribs[] = { 
-    EGL_WIDTH, (EGLint)width_,
-    EGL_HEIGHT, (EGLint)height_,
+    EGL_WIDTH, (EGLint)core_->width_,
+    EGL_HEIGHT, (EGLint)core_->height_,
     EGL_LARGEST_PBUFFER, EGL_TRUE,
     EGL_NONE
   };
   if (native_windows_id != 0) {//attach on native windows
     EGLNativeWindowType handle = reinterpret_cast<EGLNativeWindowType>(native_windows_id);
-    surface_ = eglCreateWindowSurface(display_, config_, handle, NULL);
+    core_->surface_ = eglCreateWindowSurface(core_->display_, core_->config_, handle, NULL);
   }
   else // off-render
-    surface_ = eglCreatePbufferSurface(display_, config_, PBufAttribs);
+    core_->surface_ = eglCreatePbufferSurface(core_->display_, core_->config_, PBufAttribs);
 
-  if ( surface_ == EGL_NO_SURFACE ) {
+  if (core_->surface_ == EGL_NO_SURFACE) {
     LOGE("eglCreateWindowSurface fail: %d.", eglGetError());
     return false;
   }
@@ -243,11 +268,11 @@ bool GlesBox::createSurface(uint32_t width, uint32_t height, uint64_t native_win
 }
 
 bool GlesBox::createFrameBuffer(uint32_t width, uint32_t height) {
-  glGetIntegerv(GL_FRAMEBUFFER_BINDING, (GLint*)&framebuffer_old_);
-  glGetIntegerv(GL_VIEWPORT, viewport_old_);
+  glGetIntegerv(GL_FRAMEBUFFER_BINDING, (GLint*)&core_->framebuffer_old_);
+  glGetIntegerv(GL_VIEWPORT, core_->viewport_old_);
   glActiveTexture(GL_TEXTURE0);
-  glGenTextures(1, &texture_render_);
-  glBindTexture(GL_TEXTURE_2D, texture_render_);
+  glGenTextures(1, &core_->texture_render_);
+  glBindTexture(GL_TEXTURE_2D, core_->texture_render_);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -255,15 +280,17 @@ bool GlesBox::createFrameBuffer(uint32_t width, uint32_t height) {
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
   glBindTexture(GL_TEXTURE_2D, 0);
 
-  glGenRenderbuffers(1, &depth_render_);
-  glBindRenderbuffer(GL_RENDERBUFFER, depth_render_);
+  glGenRenderbuffers(1, &core_->depth_render_);
+  glBindRenderbuffer(GL_RENDERBUFFER, core_->depth_render_);
   glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, width, height);
   glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
-  glGenFramebuffers(1, &framebuffer_);
-  glBindFramebuffer(GL_FRAMEBUFFER, framebuffer_);
-  glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture_render_, 0);
-  glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depth_render_);
+  glGenFramebuffers(1, &core_->framebuffer_);
+  glBindFramebuffer(GL_FRAMEBUFFER, core_->framebuffer_);
+  glFramebufferTexture2D(
+    GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, core_->texture_render_, 0);
+  glFramebufferRenderbuffer(
+    GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, core_->depth_render_);
   
   // FBO status check
   GLenum status;
@@ -279,54 +306,55 @@ bool GlesBox::createFrameBuffer(uint32_t width, uint32_t height) {
   }
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
   
-  frame_data_ = new uint8_t[width_*height_*4]; //RGBA 4 chanel
+  core_->frame_data_ = new uint8_t[core_->width_*core_->height_*4]; //RGBA 4 chanel
 
   return true;
 }
 
 void GlesBox::releaseFrameBuffer() {
-  if (framebuffer_ != 0)
-    glDeleteFramebuffers(1, &framebuffer_);
-  framebuffer_ = 0;
-  if (texture_render_ != 0)
-    glDeleteTextures(1, &texture_render_);
-  texture_render_ = 0;
-  if (depth_render_ != 0)
-    glDeleteRenderbuffers(1, &depth_render_);
-  depth_render_ = 0;
-  if (frame_data_ != nullptr)
-    delete[] frame_data_;
-  frame_data_ = nullptr;
-  framebuffer_old_ = 0;
+  if (core_->framebuffer_ != 0)
+    glDeleteFramebuffers(1, &core_->framebuffer_);
+  core_->framebuffer_ = 0;
+  if (core_->texture_render_ != 0)
+    glDeleteTextures(1, &core_->texture_render_);
+  core_->texture_render_ = 0;
+  if (core_->depth_render_ != 0)
+    glDeleteRenderbuffers(1, &core_->depth_render_);
+  core_->depth_render_ = 0;
+  if (core_->frame_data_ != nullptr)
+    delete[] core_->frame_data_;
+  core_->frame_data_ = nullptr;
+  core_->framebuffer_old_ = 0;
 }
 
 bool GlesBox::bindFrameBuffer(uint32_t width, uint32_t height) {
   //renew framebuffer
-  if (framebuffer_ == 0 || width_ != width || height_ != height) {
+  if (core_->framebuffer_ == 0 || core_->width_ != width || core_->height_ != height) {
     releaseFrameBuffer();
     createFrameBuffer(width, height);
-    width_ = width;
-    height_ = height;
+    core_->width_ = width;
+    core_->height_ = height;
   }
   glActiveTexture(GL_TEXTURE0);
-  glBindTexture(GL_TEXTURE_2D, texture_render_);
-  glBindFramebuffer(GL_FRAMEBUFFER, framebuffer_);
-  glViewport(0, 0, width_, height_);
+  glBindTexture(GL_TEXTURE_2D, core_->texture_render_);
+  glBindFramebuffer(GL_FRAMEBUFFER, core_->framebuffer_);
+  glViewport(0, 0, core_->width_, core_->height_);
   
   return true;
 }
 
 void GlesBox::unbindFrameBuffer() {
   glBindTexture(GL_TEXTURE_2D, 0);
-  glBindFramebuffer(GL_FRAMEBUFFER, framebuffer_old_);
-  glViewport(viewport_old_[0], viewport_old_[1], viewport_old_[2], viewport_old_[3]);
+  glBindFramebuffer(GL_FRAMEBUFFER, core_->framebuffer_old_);
+  glViewport(core_->viewport_old_[0], core_->viewport_old_[1],
+    core_->viewport_old_[2], core_->viewport_old_[3]);
 }
 
 const uint8_t* GlesBox::readFromGPU() {
   //TODO(binfei): use PBO to accelerate
-  glReadPixels(0, 0, width_, height_, GL_RGBA, GL_UNSIGNED_BYTE, frame_data_);
+  glReadPixels(0, 0, core_->width_, core_->height_, GL_RGBA, GL_UNSIGNED_BYTE, core_->frame_data_);
 
-  return frame_data_;
+  return core_->frame_data_;
 }
 
 bool GlesBox::swap(const float angle) {
@@ -339,28 +367,17 @@ bool GlesBox::swap(const float angle) {
   };
 
   //1. render framebuffer to screen
-  /*glEnable(GL_TEXTURE_2D);
-  shaderProgram_.bind();
-  shaderProgram_.setUniformMatrixValue4fv("model_view_project", projection);
-  glActiveTexture(GL_TEXTURE0);
-  glBindTexture(GL_TEXTURE_2D, texture_render_);
-  shaderProgram_.setUniformValue1i("u_texture", 0);
-  glBindBuffer(GL_ARRAY_BUFFER, face_vert_vbo_);
-  GLuint a_position = shaderProgram_.GetAttribLocation("a_position");
-  glEnableVertexAttribArray(a_position);
-  glVertexAttribPointer(a_position, 3, GL_FLOAT, GL_FALSE, 0, 0);
-  glBindBuffer(GL_ARRAY_BUFFER, face_texc_vbo_);
-  GLuint a_texturecoord = shaderProgram_.GetAttribLocation("a_texturecoord");
-  glEnableVertexAttribArray(a_texturecoord);
-  glVertexAttribPointer(a_texturecoord, 2, GL_FLOAT, GL_FALSE, 0, 0);
-  glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-  glDisableVertexAttribArray(a_position);
-  glDisableVertexAttribArray(a_texturecoord);
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
-  shaderProgram_.unbind();
-  glDisable(GL_TEXTURE_2D);*/
+  core_->frameimage_.setTextureid(core_->texture_render_);
+  GBConfig conf;
+  conf.type = GB_DRAW_ONLINE_WITH_OPENGLES_CONTEXT;
+  conf.screen_angle = angle;
+  core_->frameimage_.draw(conf);
 
   return true;
+}
+
+const bool GlesBox::hasEgl() const {
+  return core_->display_ != nullptr;
 }
 
 //-------------------------------------------------------------------------------------------------

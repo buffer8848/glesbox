@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "glesbox", "glesbox.vcxproj", "{EED79033-C0BF-488E-92C4-90D7C70E30DE}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mirror", "..\..\..\sample\win\mirror\mirror.vcxproj", "{D747B01D-116B-4033-8ED8-C514BFD7A1D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -13,6 +15,10 @@ Global
 		{EED79033-C0BF-488E-92C4-90D7C70E30DE}.Debug|Win32.Build.0 = Debug|Win32
 		{EED79033-C0BF-488E-92C4-90D7C70E30DE}.Release|Win32.ActiveCfg = Release|Win32
 		{EED79033-C0BF-488E-92C4-90D7C70E30DE}.Release|Win32.Build.0 = Release|Win32
+		{D747B01D-116B-4033-8ED8-C514BFD7A1D8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D747B01D-116B-4033-8ED8-C514BFD7A1D8}.Debug|Win32.Build.0 = Debug|Win32
+		{D747B01D-116B-4033-8ED8-C514BFD7A1D8}.Release|Win32.ActiveCfg = Release|Win32
+		{D747B01D-116B-4033-8ED8-C514BFD7A1D8}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
