@@ -52,12 +52,12 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\..\..\bin\;..\..\..\tools\glut\libs\win32\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\bin\;..\..\..\tools\glut\libs\win32\;..\..\..\tools\opencv\lib\</AdditionalLibraryDirectories>
       <AdditionalDependencies>opencv_world300.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy /y "..\..\..\tools\glut\libs\win32\*.dll" "..\..\..\bin\"
-copy /y "..\..\..\tools\opencv\lib\*" "..\..\..\bin\"</Command>
+copy /y "..\..\..\tools\opencv\lib\*.dll" "..\..\..\bin\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

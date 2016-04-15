@@ -234,7 +234,7 @@ bool GlesBox::bindEGLContext(uint32_t width, uint32_t height, uint64_t native_wi
 void GlesBox::unbindEGLContext() {
   if (core_->display_ != nullptr)
     eglSwapBuffers(core_->display_, core_->surface_);
-  //eglMakeCurrent(core_->display_, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
+  eglMakeCurrent(core_->display_, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
 }
 
 bool GlesBox::createSurface(uint32_t width, uint32_t height, uint64_t native_windows_id) {
