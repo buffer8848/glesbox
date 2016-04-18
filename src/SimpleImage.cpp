@@ -27,7 +27,6 @@ const char * image_show_fragment_shader_source =
   "gl_FragColor = texture2D(u_texture,v_texturecoord);\n"
   "}";
 
-
 struct SimpleImage::core {
   bool weak_textid_;
   GLuint textureid_;

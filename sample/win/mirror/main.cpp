@@ -20,7 +20,7 @@ using namespace libgb;
 #define IMAGE_CHANEL 4
 
 uint32_t video_width = 320*2, video_height = 240*2;
-uint32_t win_width = 512, win_height = 512;
+uint32_t win_width = 640, win_height = 480;
 cv::VideoCapture vc;
 GlesBox engine;
 vector<uint8_t> texture_data;
@@ -63,6 +63,7 @@ bool InitializeSDK() {
 void Display() {
   glClearColor(0.58,0.73,0.89,0);
   glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+  glViewport(0, 0, win_width, win_height);
 
   //capture camera picture
   cv::Mat frame;
@@ -73,7 +74,7 @@ void Display() {
   conf.type = GB_DRAW_ONLINE_WITHOUT_OPENGLES_CONTEXT;
   conf.screen_width = win_width;
   conf.screen_height = win_height;
-  conf.screen_native_id = (uint64_t)GetActiveWindow();
+  conf.screen_native_id = (unsigned long)GetActiveWindow();
   conf.screen_angle = 0.0f;
   conf.offline_width = win_width;
   conf.offline_height = win_height;
@@ -92,13 +93,13 @@ void Display() {
   //  conf.offline_width, conf.offline_height, IMAGE_CHANEL, texture_offline_data);
   //render_offline.draw(conf);
   engine.draw_end(conf);
-  cv::imshow("fuck", frame);
+  //cv::imshow("fuck", frame);
   //glutSwapBuffers();
 }
 
 void Reshape(int w, int h) {
-  win_width = w/2;
-  win_height = h;
+  //win_width = w/2;
+  //win_height = h;
 }
 
 void Idle() {

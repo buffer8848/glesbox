@@ -43,7 +43,7 @@ typedef struct GBConfig {
   //  Android OS: ANativeWindow_fromSurface();
   //  iOS-swift: unsafeAddressOf(UIView);
   //if screen has init OpenglES context itself, it should be 0;
-  uint64_t screen_native_id;
+  unsigned long screen_native_id;
   uint32_t screen_x;
   uint32_t screen_y;
   uint32_t screen_width;

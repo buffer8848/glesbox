@@ -13,8 +13,7 @@ namespace libgb {
 
 class Model {
 public:
-  virtual ~Model() = 0 {
-  }
+  virtual ~Model() = 0{}
 
   virtual bool load(const std::string &file) = 0;
   virtual bool draw(const GBConfig& conf) = 0;

@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\src\common.hpp" />
     <ClInclude Include="..\..\..\src\glesbox.hpp" />
+    <ClInclude Include="..\..\..\src\glstub.hpp" />
     <ClInclude Include="..\..\..\src\model.hpp" />
     <ClInclude Include="..\..\..\src\platform.hpp" />
     <ClInclude Include="..\..\..\src\shaderprogram.hpp" />
@@ -20,6 +21,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\glesbox.cpp" />
+    <ClCompile Include="..\..\..\src\glstub.cpp" />
     <ClCompile Include="..\..\..\src\shaderprogram.cpp" />
     <ClCompile Include="..\..\..\src\SimpleImage.cpp" />
   </ItemGroup>

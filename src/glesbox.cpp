@@ -7,6 +7,7 @@
 
 #include "libyuv.h"
 
+#include "glstub.hpp"
 #include "platform.hpp"
 #include "SimpleImage.hpp"
 
@@ -38,6 +39,7 @@ struct GlesBox::core {
 };
 
 GlesBox::GlesBox() : core_(new core()){
+  glstubInit();
 }
 
 GlesBox::~GlesBox() {
@@ -63,22 +65,21 @@ bool GlesBox::draw_begin(const GBConfig& conf) {
   uint32_t width(0), height(0);
   bool need_egl = false, need_fbo = false;
   switch(conf.type) {
-  case GB_DRAW_ONLINE_WITH_OPENGLES_CONTEXT:
-    break;
-  case GB_DRAW_OFFLINE_WITH_OPENGLES_CONTEXT:
-  case GB_DRAW_BOTH_WITH_OPENGLES_CONTEXT:
-    need_fbo = true;
-    width = conf.offline_width;
-    height = conf.offline_height;
-    break;
   case GB_DRAW_ONLINE_WITHOUT_OPENGLES_CONTEXT:
     width = conf.screen_width;
     height = conf.screen_height;
     need_egl = true;
     native_windows_id = conf.screen_native_id;
+  case GB_DRAW_ONLINE_WITH_OPENGLES_CONTEXT:
     break;
-  case GB_DRAW_OFFLINE_WITHOUT_OPENGLES_CONTEXT:
+  case GB_DRAW_BOTH_WITH_OPENGLES_CONTEXT:
+  case GB_DRAW_OFFLINE_WITH_OPENGLES_CONTEXT:
+    need_fbo = true;
+    width = conf.offline_width;
+    height = conf.offline_height;
+    break;
   case GB_DRAW_BOTH_WITHOUT_OPENGLES_CONTEXT:
+  case GB_DRAW_OFFLINE_WITHOUT_OPENGLES_CONTEXT:
     need_fbo = true;
     need_egl = true;
     width = conf.offline_width;
@@ -102,24 +103,22 @@ bool GlesBox::draw_end(GBConfig& conf) {
   float angle = 0.0f;
   bool need_egl = false, need_fbo = false, need_swap = false;
   switch(conf.type) {
+  case GB_DRAW_ONLINE_WITHOUT_OPENGLES_CONTEXT:
+    need_egl = true;
   case GB_DRAW_ONLINE_WITH_OPENGLES_CONTEXT:
     angle = conf.screen_angle;
     break;
-  case GB_DRAW_OFFLINE_WITH_OPENGLES_CONTEXT:
   case GB_DRAW_BOTH_WITH_OPENGLES_CONTEXT:
-    need_fbo = true;
     need_swap = true;
+  case GB_DRAW_OFFLINE_WITH_OPENGLES_CONTEXT:
+    need_fbo = true;
     angle = conf.offline_angle;
     break;
-  case GB_DRAW_ONLINE_WITHOUT_OPENGLES_CONTEXT:
-    need_egl = true;
-    angle = conf.screen_angle;
-    break;
-  case GB_DRAW_OFFLINE_WITHOUT_OPENGLES_CONTEXT:
   case GB_DRAW_BOTH_WITHOUT_OPENGLES_CONTEXT:
+    need_swap = true;
+  case GB_DRAW_OFFLINE_WITHOUT_OPENGLES_CONTEXT:
     need_fbo = true;
     need_egl = true;
-    need_swap = true;
     angle = conf.offline_angle;
     break;
   default:
@@ -270,7 +269,8 @@ bool GlesBox::createSurface(uint32_t width, uint32_t height, uint64_t native_win
 bool GlesBox::createFrameBuffer(uint32_t width, uint32_t height) {
   glGetIntegerv(GL_FRAMEBUFFER_BINDING, (GLint*)&core_->framebuffer_old_);
   glGetIntegerv(GL_VIEWPORT, core_->viewport_old_);
-  glActiveTexture(GL_TEXTURE0);
+  glEnable(GL_TEXTURE_2D);
+  //glActiveTexture(GL_TEXTURE0);
   glGenTextures(1, &core_->texture_render_);
   glBindTexture(GL_TEXTURE_2D, core_->texture_render_);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -304,7 +304,8 @@ bool GlesBox::createFrameBuffer(uint32_t width, uint32_t height) {
       LOGD("glesbox: create framebuffer fail: %d", status);
       break;
   }
-  glBindFramebuffer(GL_FRAMEBUFFER, 0);
+  glBindFramebuffer(GL_FRAMEBUFFER, core_->framebuffer_old_);
+  glDisable(GL_TEXTURE_2D);
   
   core_->frame_data_ = new uint8_t[core_->width_*core_->height_*4]; //RGBA 4 chanel
 
@@ -335,7 +336,8 @@ bool GlesBox::bindFrameBuffer(uint32_t width, uint32_t height) {
     core_->width_ = width;
     core_->height_ = height;
   }
-  glActiveTexture(GL_TEXTURE0);
+  glEnable(GL_TEXTURE_2D);
+  //glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, core_->texture_render_);
   glBindFramebuffer(GL_FRAMEBUFFER, core_->framebuffer_);
   glViewport(0, 0, core_->width_, core_->height_);
@@ -348,6 +350,7 @@ void GlesBox::unbindFrameBuffer() {
   glBindFramebuffer(GL_FRAMEBUFFER, core_->framebuffer_old_);
   glViewport(core_->viewport_old_[0], core_->viewport_old_[1],
     core_->viewport_old_[2], core_->viewport_old_[3]);
+  glDisable(GL_TEXTURE_2D);
 }
 
 const uint8_t* GlesBox::readFromGPU() {
