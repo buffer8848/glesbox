@@ -66,25 +66,21 @@ bool GlesBox::draw_begin(const GBConfig& conf) {
   bool need_egl = false, need_fbo = false;
   switch(conf.type) {
   case GB_DRAW_ONLINE_WITHOUT_OPENGLES_CONTEXT:
-    width = conf.screen_width;
-    height = conf.screen_height;
     need_egl = true;
     native_windows_id = conf.screen_native_id;
   case GB_DRAW_ONLINE_WITH_OPENGLES_CONTEXT:
+    width = conf.screen_width;
+    height = conf.screen_height;
     break;
+  case GB_DRAW_BOTH_WITHOUT_OPENGLES_CONTEXT:
+  case GB_DRAW_OFFLINE_WITHOUT_OPENGLES_CONTEXT:
+    need_egl = true;
+    native_windows_id = conf.screen_native_id;
   case GB_DRAW_BOTH_WITH_OPENGLES_CONTEXT:
   case GB_DRAW_OFFLINE_WITH_OPENGLES_CONTEXT:
     need_fbo = true;
     width = conf.offline_width;
     height = conf.offline_height;
-    break;
-  case GB_DRAW_BOTH_WITHOUT_OPENGLES_CONTEXT:
-  case GB_DRAW_OFFLINE_WITHOUT_OPENGLES_CONTEXT:
-    need_fbo = true;
-    need_egl = true;
-    width = conf.offline_width;
-    height = conf.offline_height;
-    native_windows_id = conf.screen_native_id;
     break;
   default:
     LOGE("GlesBox: not support this draw type.");
@@ -95,17 +91,22 @@ bool GlesBox::draw_begin(const GBConfig& conf) {
     bindEGLContext(width, height, native_windows_id);
   if (need_fbo)
     bindFrameBuffer(width, height);
+  
+  glViewport(conf.screen_x, conf.screen_y, width, height);
 
   return true;
 }
 
 bool GlesBox::draw_end(GBConfig& conf) {
   float angle = 0.0f;
+  uint32_t width(0), height(0);
   bool need_egl = false, need_fbo = false, need_swap = false;
   switch(conf.type) {
   case GB_DRAW_ONLINE_WITHOUT_OPENGLES_CONTEXT:
     need_egl = true;
   case GB_DRAW_ONLINE_WITH_OPENGLES_CONTEXT:
+    width = conf.screen_width;
+    height = conf.screen_height;
     angle = conf.screen_angle;
     break;
   case GB_DRAW_BOTH_WITH_OPENGLES_CONTEXT:
@@ -113,6 +114,8 @@ bool GlesBox::draw_end(GBConfig& conf) {
   case GB_DRAW_OFFLINE_WITH_OPENGLES_CONTEXT:
     need_fbo = true;
     angle = conf.offline_angle;
+    width = conf.offline_width;
+    height = conf.offline_height;
     break;
   case GB_DRAW_BOTH_WITHOUT_OPENGLES_CONTEXT:
     need_swap = true;
@@ -120,6 +123,8 @@ bool GlesBox::draw_end(GBConfig& conf) {
     need_fbo = true;
     need_egl = true;
     angle = conf.offline_angle;
+    width = conf.offline_width;
+    height = conf.offline_height;
     break;
   default:
     LOGE("GlesBox: not support this draw type.");
@@ -129,6 +134,7 @@ bool GlesBox::draw_end(GBConfig& conf) {
     //read from GPU and do image translation
     const uint8_t *image = readFromGPU();
     unbindFrameBuffer();
+    glViewport(conf.screen_x, conf.screen_y, width, height);
     if (need_swap)
       swap(conf.screen_angle + angle + 180.0f);
 

@@ -19,8 +19,8 @@ using namespace libgb;
 #define VIDEO_CHANEL 3
 #define IMAGE_CHANEL 4
 
-uint32_t video_width = 320*2, video_height = 240*2;
-uint32_t win_width = 640, win_height = 480;
+uint32_t video_width = 640, video_height = 480;
+uint32_t win_width = 512, win_height = 512;
 cv::VideoCapture vc;
 GlesBox engine;
 vector<uint8_t> texture_data;
@@ -79,22 +79,24 @@ void Display() {
   conf.screen_angle = 0.0f;
   conf.offline_width = win_width;
   conf.offline_height = win_height;
+  conf.offline_widthstep = conf.offline_width * 3;
   conf.offline_channel = IMAGE_CHANEL;
-  conf.offline_type = GB_IMAGE_RGBA32;
+  conf.offline_type = GB_IMAGE_RGB24;
+  conf.screen_angle = 0.0f;
   conf.offline_data = texture_offline_data.data();
   engine.draw_begin(conf);
   //directly draw
-  //glViewport(0, 0, win_width, win_height);
-  //GLuint tmp = 0;
-  //glGenTextures(1, &tmp);
   memcpy(texture_data.data(), frame.data, texture_data.size());
   render.setTextData(frame.cols, frame.rows, VIDEO_CHANEL, texture_data);
   render.draw(conf);
+  engine.draw_end(conf);
   //draw image
-  //glViewport(win_width, 0, win_width, win_height);
-  //render_offline.setTextData(
-  //  conf.offline_width, conf.offline_height, IMAGE_CHANEL, texture_offline_data);
-  //render_offline.draw(conf);
+  conf.type = GB_DRAW_ONLINE_WITHOUT_OPENGLES_CONTEXT;
+  conf.screen_x = win_width;
+  engine.draw_begin(conf);
+  render_offline.setTextData(
+    conf.offline_width, conf.offline_height, VIDEO_CHANEL, texture_offline_data);
+  render_offline.draw(conf);
   engine.draw_end(conf);
   //cv::imshow("fuck", frame);
   //glutSwapBuffers();
