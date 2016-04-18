@@ -7,11 +7,11 @@
 
 #include <windows.h>
 
-#include "GL/glut.h"
-#include "opencv2/opencv.hpp"
-
 #include "glesbox.hpp"
 #include "SimpleImage.hpp"
+
+#include "GL/glut.h"
+#include "opencv2/opencv.hpp"
 
 using namespace std;
 using namespace libgb;
@@ -32,7 +32,7 @@ SimpleImage render_offline;
 
 bool InitializeCamera(bool fromdevice) {
   if (fromdevice) {
-    vc.open(0);
+    vc.open("1.avi");
     if (!vc.isOpened()) {
       cout << "InitializeCamera failed." << endl;
       return false;
@@ -68,10 +68,11 @@ void Display() {
   //capture camera picture
   cv::Mat frame;
   vc >> frame;
+  cv::cvtColor(frame, frame, cv::COLOR_RGB2BGR);
   cv::flip(frame, frame, 1);
 
   GBConfig conf;
-  conf.type = GB_DRAW_ONLINE_WITHOUT_OPENGLES_CONTEXT;
+  conf.type = GB_DRAW_BOTH_WITHOUT_OPENGLES_CONTEXT;
   conf.screen_width = win_width;
   conf.screen_height = win_height;
   conf.screen_native_id = (unsigned long)GetActiveWindow();
@@ -84,6 +85,8 @@ void Display() {
   engine.draw_begin(conf);
   //directly draw
   //glViewport(0, 0, win_width, win_height);
+  //GLuint tmp = 0;
+  //glGenTextures(1, &tmp);
   memcpy(texture_data.data(), frame.data, texture_data.size());
   render.setTextData(frame.cols, frame.rows, VIDEO_CHANEL, texture_data);
   render.draw(conf);

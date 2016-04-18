@@ -1,26 +1,19 @@
 // Copyright (c) 2016 xxx
 // Author:  LI,Binfei (binfeix.li@intel.com or 179770346@qq.com)
 
-#ifndef LIBGB_MODEL_H_
-#define LIBGB_MODEL_H_
+#include "model.hpp"
 
-#include <string>
-
-#include "common.hpp"
+#include "glstub.hpp"
 
 //-------------------------------------------------------------------------------------------------
 namespace libgb {
 
-class Model {
-public:
-  Model();
-  virtual ~Model() = 0;
+Model::Model() {
+  glstubInit();
+}
 
-  virtual bool load(const std::string &file) = 0;
-  virtual bool draw(const GBConfig& conf) = 0;
-};
+Model::~Model() {
+}
 
 //-------------------------------------------------------------------------------------------------
 } //! namespace libgb
-
-#endif //!LIBGB_MODEL_H_
