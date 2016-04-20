@@ -7,7 +7,6 @@
 
 #include "libyuv.h"
 
-#include "glstub.hpp"
 #include "platform.hpp"
 #include "SimpleImage.hpp"
 
@@ -39,7 +38,6 @@ struct GlesBox::core {
 };
 
 GlesBox::GlesBox() : core_(new core()){
-  glstubInit();
 }
 
 GlesBox::~GlesBox() {
@@ -379,7 +377,6 @@ bool GlesBox::swap(const float angle) {
   core_->frameimage_.setTextureid(core_->texture_render_);
   GBConfig conf;
   conf.type = GB_DRAW_ONLINE_WITH_OPENGLES_CONTEXT;
-  conf.screen_angle = angle;
   core_->frameimage_.draw(conf);
 
   return true;

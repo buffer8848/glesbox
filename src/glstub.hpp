@@ -3,12 +3,8 @@
 #ifndef LIBGB_GLSTUB_H_
 #define LIBGB_GLSTUB_H_
 
-#include <GLES2/gl2.h>
-#include <GLES2/gl2ext.h>
-//#include <android/api-level.h>
-
 #pragma warning(push)
-#pragma warning(disable:4229 4005)
+#pragma warning(disable:4229 4005 4273)
 
 namespace libgb {
 
@@ -38,11 +34,36 @@ namespace libgb {
 /* Call this function before calling any OpenGL ES 3.0 functions. It will
  * return GL_TRUE if the OpenGL ES 3.0 was successfully initialized, GL_FALSE
  * otherwise. */
-GLboolean glstubInit();
+bool glstubInit();
+class Pre {
+public:
+  Pre() {
+    glstubInit();
+  }
+};
 
 /*-------------------------------------------------------------------------
  * Data type definitions
  *-----------------------------------------------------------------------*/
+typedef void            GLvoid;
+typedef unsigned int    GLenum;
+typedef unsigned char   GLboolean;
+typedef unsigned int    GLbitfield;
+typedef signed char     GLbyte;
+typedef short           GLshort;
+typedef int             GLint;
+typedef int             GLsizei;
+typedef unsigned char   GLubyte;
+typedef unsigned short  GLushort;
+typedef unsigned int    GLuint;
+typedef float           GLfloat;
+typedef float           GLclampf;
+typedef int             GLfixed;
+typedef int             GLclampx;
+
+/* GL types for handling large vertex buffer objects */
+typedef int             GLintptr;
+typedef int             GLsizeiptr;
 
 typedef unsigned short   GLhalf;
 //#if __ANDROID_API__ <= 19
@@ -50,6 +71,15 @@ typedef unsigned short   GLhalf;
 //typedef khronos_uint64_t GLuint64;
 //typedef struct __GLsync *GLsync;
 //#endif
+
+#if (defined(_WIN32) || defined(__VC32__)) && !defined(_WIN32_WCE) /* Win32 */
+#define GL_APIENTRY __stdcall
+#else
+#define GL_APIENTRY
+#endif
+#ifndef GL_APIENTRYP
+#   define GL_APIENTRYP GL_APIENTRY*
+#endif
 
 extern void         (GL_APIENTRYP glActiveTexture) (GLenum texture);
 extern void         (GL_APIENTRYP glAttachShader) (GLuint program, GLuint shader);

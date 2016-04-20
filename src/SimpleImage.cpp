@@ -3,6 +3,8 @@
 
 #include "simpleimage.hpp"
 
+#include <math.h>
+
 #include "platform.hpp"
 #include "shaderprogram.hpp"
 

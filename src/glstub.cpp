@@ -1,10 +1,12 @@
 #include "glstub.hpp"
 
-#include <EGL/egl.h>
+#include "EGL/egl.h"
 
 namespace libgb {
 
-GLboolean glstubInit() {
+static Pre pre;
+
+bool glstubInit() {
     #define FIND_PROC(s) s = (decltype(s)(eglGetProcAddress(#s)));
     FIND_PROC(glActiveTexture                      )
     FIND_PROC(glAttachShader                       )
@@ -293,14 +295,14 @@ GLboolean glstubInit() {
         !glVertexAttribPointer                ||
         !glViewport                           
         ) {
-      return GL_FALSE;
+      return false;
     }
 
-    return GL_TRUE;
+    return true;
 }
 
 #pragma warning(push)
-#pragma warning(disable:4229 4005)
+#pragma warning(disable:4229 4005 4273)
 
 void         (GL_APIENTRYP glActiveTexture) (GLenum texture);
 void         (GL_APIENTRYP glAttachShader) (GLuint program, GLuint shader);

@@ -22,7 +22,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\src\glesbox.cpp" />
     <ClCompile Include="..\..\..\src\glstub.cpp" />
-    <ClCompile Include="..\..\..\src\model.cpp" />
     <ClCompile Include="..\..\..\src\shaderprogram.cpp" />
     <ClCompile Include="..\..\..\src\SimpleImage.cpp" />
   </ItemGroup>
@@ -34,7 +33,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">

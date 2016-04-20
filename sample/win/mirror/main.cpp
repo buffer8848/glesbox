@@ -32,7 +32,7 @@ SimpleImage render_offline;
 
 bool InitializeCamera(bool fromdevice) {
   if (fromdevice) {
-    vc.open("1.avi");
+    vc.open(0);
     if (!vc.isOpened()) {
       cout << "InitializeCamera failed." << endl;
       return false;
@@ -82,7 +82,7 @@ void Display() {
   conf.offline_widthstep = conf.offline_width * 3;
   conf.offline_channel = IMAGE_CHANEL;
   conf.offline_type = GB_IMAGE_RGB24;
-  conf.screen_angle = 0.0f;
+  conf.offline_angle = 0.0f;
   conf.offline_data = texture_offline_data.data();
   engine.draw_begin(conf);
   //directly draw

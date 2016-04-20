@@ -11,13 +11,14 @@
 #include "GLES2/gl2.h"
 #include "GLES2/gl2ext.h"
 #include "EGL/egl.h"
+#include "glstub.hpp"
 #pragma comment(lib, "libGLESv2.lib")
 #pragma comment(lib, "libEGL.lib")
 #pragma comment(lib, "libyuv.lib")
 #elif defined(_IOS)
 #import <OpenGLES/ES2/gl.h>
 #import <OpenGLES/ES2/glext.h>
-#include "EGL/egl.h"
+#import "EGL/egl.h"
 #elif defined(_ANDROID)
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
@@ -30,8 +31,6 @@
 #include <fcntl.h>
 #endif
 
-#include "glstub.hpp"
-
 //-------------------------------------------------------------------------------------------------
 namespace libgb {
 //-------------------------------------------------------------------------------------------------
@@ -39,12 +38,12 @@ namespace libgb {
 #ifdef _ANDROID
 #define LOGD(...) \
   do{ \
-  __android_log_print(3, __VA_ARGS__); \
+  __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__); \
   }while(0);
 
 #define LOGE(...) \
   do{ \
-  __android_log_print(6, __VA_ARGS__); \
+  __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__); \
   }while(0);
 #else
 #define LOGD(...) \
