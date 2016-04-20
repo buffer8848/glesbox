@@ -87,15 +87,16 @@ void Display() {
   engine.draw_begin(conf);
   //directly draw
   memcpy(texture_data.data(), frame.data, texture_data.size());
-  render.setTextData(frame.cols, frame.rows, VIDEO_CHANEL, texture_data);
+  render.setTextData(frame.cols, frame.rows, VIDEO_CHANEL, texture_data.data());
   render.draw(conf);
   engine.draw_end(conf);
   //draw image
   conf.type = GB_DRAW_ONLINE_WITHOUT_OPENGLES_CONTEXT;
   conf.screen_x = win_width;
+  conf.screen_angle = 180.0f;
   engine.draw_begin(conf);
   render_offline.setTextData(
-    conf.offline_width, conf.offline_height, VIDEO_CHANEL, texture_offline_data);
+    conf.offline_width, conf.offline_height, VIDEO_CHANEL, texture_offline_data.data());
   render_offline.draw(conf);
   engine.draw_end(conf);
   //cv::imshow("fuck", frame);

@@ -49,11 +49,13 @@ namespace libgb {
 #define LOGD(...) \
   do{ \
   printf(__VA_ARGS__); \
+  printf("\n");\
   }while(0);
 
 #define LOGE(...) \
   do{ \
   printf(__VA_ARGS__); \
+  printf("\n");\
   }while(0);
 #endif
 

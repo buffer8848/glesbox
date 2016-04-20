@@ -17,13 +17,13 @@
     <ClInclude Include="..\..\..\src\model.hpp" />
     <ClInclude Include="..\..\..\src\platform.hpp" />
     <ClInclude Include="..\..\..\src\shaderprogram.hpp" />
-    <ClInclude Include="..\..\..\src\SimpleImage.hpp" />
+    <ClInclude Include="..\..\..\src\simpleimage.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\glesbox.cpp" />
     <ClCompile Include="..\..\..\src\glstub.cpp" />
     <ClCompile Include="..\..\..\src\shaderprogram.cpp" />
-    <ClCompile Include="..\..\..\src\SimpleImage.cpp" />
+    <ClCompile Include="..\..\..\src\simpleimage.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EED79033-C0BF-488E-92C4-90D7C70E30DE}</ProjectGuid>

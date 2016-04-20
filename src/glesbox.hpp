@@ -19,9 +19,11 @@ public:
   bool draw_begin(const GBConfig& conf);
   bool draw_end(GBConfig& conf);
 
-private:
   bool bindEGLContext(uint32_t width, uint32_t height, uint64_t native_windows_id);
   void unbindEGLContext();
+  const bool hasEgl() const;
+
+private:
   bool bindFrameBuffer(uint32_t width, uint32_t height);
   void unbindFrameBuffer();
   bool createSurface(uint32_t width, uint32_t height, uint64_t native_windows_id);
@@ -30,8 +32,6 @@ private:
 
   const uint8_t* readFromGPU();
   bool swap(const float angle);
-
-  const bool hasEgl() const;
 
 private:
   struct core;

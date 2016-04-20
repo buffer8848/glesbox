@@ -34,6 +34,9 @@ struct GlesBox::core {
     framebuffer_(0), texture_render_(0), depth_render_(0), frame_data_(nullptr) {
   }
   ~core() {
+    if (frame_data_ != nullptr)
+      delete[] frame_data_;
+    frame_data_ = nullptr;
   }
 };
 
@@ -87,24 +90,26 @@ bool GlesBox::draw_begin(const GBConfig& conf) {
 
   if (need_egl)
     bindEGLContext(width, height, native_windows_id);
+  glGetIntegerv(GL_VIEWPORT, core_->viewport_old_);
+  LOGE("1%d, %d, %d, %d.", core_->viewport_old_[0], core_->viewport_old_[1],
+    core_->viewport_old_[2], core_->viewport_old_[3]);
   if (need_fbo)
     bindFrameBuffer(width, height);
-  
-  glViewport(conf.screen_x, conf.screen_y, width, height);
+  else {
+    glViewport(conf.screen_x, conf.screen_y, width, height);
+    LOGE("2%d, %d, %d, %d.", conf.screen_x, conf.screen_y, width, height);
+    }
 
   return true;
 }
 
 bool GlesBox::draw_end(GBConfig& conf) {
   float angle = 0.0f;
-  uint32_t width(0), height(0);
   bool need_egl = false, need_fbo = false, need_swap = false;
   switch(conf.type) {
   case GB_DRAW_ONLINE_WITHOUT_OPENGLES_CONTEXT:
     need_egl = true;
   case GB_DRAW_ONLINE_WITH_OPENGLES_CONTEXT:
-    width = conf.screen_width;
-    height = conf.screen_height;
     angle = conf.screen_angle;
     break;
   case GB_DRAW_BOTH_WITH_OPENGLES_CONTEXT:
@@ -112,8 +117,6 @@ bool GlesBox::draw_end(GBConfig& conf) {
   case GB_DRAW_OFFLINE_WITH_OPENGLES_CONTEXT:
     need_fbo = true;
     angle = conf.offline_angle;
-    width = conf.offline_width;
-    height = conf.offline_height;
     break;
   case GB_DRAW_BOTH_WITHOUT_OPENGLES_CONTEXT:
     need_swap = true;
@@ -121,8 +124,6 @@ bool GlesBox::draw_end(GBConfig& conf) {
     need_fbo = true;
     need_egl = true;
     angle = conf.offline_angle;
-    width = conf.offline_width;
-    height = conf.offline_height;
     break;
   default:
     LOGE("GlesBox: not support this draw type.");
@@ -132,7 +133,7 @@ bool GlesBox::draw_end(GBConfig& conf) {
     //read from GPU and do image translation
     const uint8_t *image = readFromGPU();
     unbindFrameBuffer();
-    glViewport(conf.screen_x, conf.screen_y, width, height);
+    glViewport(conf.screen_x, conf.screen_y, conf.screen_width, conf.screen_height);
     if (need_swap)
       swap(conf.screen_angle + angle + 180.0f);
 
@@ -165,6 +166,8 @@ bool GlesBox::draw_end(GBConfig& conf) {
 
   if (need_egl)
     unbindEGLContext();
+  glViewport(core_->viewport_old_[0], core_->viewport_old_[1],
+    core_->viewport_old_[2], core_->viewport_old_[3]);
 
   return true;
 }
@@ -172,7 +175,7 @@ bool GlesBox::draw_end(GBConfig& conf) {
 //-------------------------------------------------------------------------------------------------
 bool GlesBox::bindEGLContext(uint32_t width, uint32_t height, uint64_t native_windows_id) {
   if (core_->display_ == nullptr) {
-     // Get Display
+    // Get Display
     core_->display_ = eglGetDisplay(EGL_DEFAULT_DISPLAY);
     if (core_->display_ == EGL_NO_DISPLAY) {
       LOGE("Cann't get EGL display on native windows.");
@@ -272,7 +275,6 @@ bool GlesBox::createSurface(uint32_t width, uint32_t height, uint64_t native_win
 
 bool GlesBox::createFrameBuffer(uint32_t width, uint32_t height) {
   glGetIntegerv(GL_FRAMEBUFFER_BINDING, (GLint*)&core_->framebuffer_old_);
-  glGetIntegerv(GL_VIEWPORT, core_->viewport_old_);
   glEnable(GL_TEXTURE_2D);
   //glActiveTexture(GL_TEXTURE0);
   glGenTextures(1, &core_->texture_render_);
@@ -311,7 +313,7 @@ bool GlesBox::createFrameBuffer(uint32_t width, uint32_t height) {
   glBindFramebuffer(GL_FRAMEBUFFER, core_->framebuffer_old_);
   glDisable(GL_TEXTURE_2D);
   
-  core_->frame_data_ = new uint8_t[core_->width_*core_->height_*4]; //RGBA 4 chanel
+  core_->frame_data_ = new uint8_t[width*height*4]; //RGBA 4 chanel
 
   return true;
 }
@@ -365,18 +367,11 @@ const uint8_t* GlesBox::readFromGPU() {
 }
 
 bool GlesBox::swap(const float angle) {
-  float radian = angle * PI/ 180.0f;
-  float projection[] = { 
-    static_cast<float>(cos(radian)), static_cast<float>(-sin(radian)), 0.0f, 0.0f,
-    static_cast<float>(sin(radian)), static_cast<float>(cos(radian)), 0.0f, 0.0f,
-    0.0f, 0.0f, 1.0f, 0.0f,
-    0.0f, 0.0f, 0.0f, 1.0f
-  };
-
   //1. render framebuffer to screen
   core_->frameimage_.setTextureid(core_->texture_render_);
   GBConfig conf;
   conf.type = GB_DRAW_ONLINE_WITH_OPENGLES_CONTEXT;
+  conf.screen_angle = angle;
   core_->frameimage_.draw(conf);
 
   return true;
