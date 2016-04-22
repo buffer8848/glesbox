@@ -18,12 +18,14 @@
     <ClInclude Include="..\..\..\src\platform.hpp" />
     <ClInclude Include="..\..\..\src\shaderprogram.hpp" />
     <ClInclude Include="..\..\..\src\simpleimage.hpp" />
+    <ClInclude Include="..\..\..\src\yuvimage.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\glesbox.cpp" />
     <ClCompile Include="..\..\..\src\glstub.cpp" />
     <ClCompile Include="..\..\..\src\shaderprogram.cpp" />
     <ClCompile Include="..\..\..\src\simpleimage.cpp" />
+    <ClCompile Include="..\..\..\src\yuvimage.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EED79033-C0BF-488E-92C4-90D7C70E30DE}</ProjectGuid>

@@ -9,6 +9,7 @@
 
 #include "glesbox.hpp"
 #include "SimpleImage.hpp"
+#include "yuvimage.hpp"
 
 #include "GL/glut.h"
 #include "opencv2/opencv.hpp"
@@ -16,6 +17,7 @@
 using namespace std;
 using namespace libgb;
 //-------------------------------------------------------------------------------------------------
+#define YUV_CHANEL 1
 #define VIDEO_CHANEL 3
 #define IMAGE_CHANEL 4
 
@@ -26,7 +28,7 @@ GlesBox engine;
 vector<uint8_t> texture_data;
 vector<uint8_t> texture_offline_data;
 SimpleImage render;
-SimpleImage render_offline;
+YuvImage render_offline;
 
 //-------------------------------------------------------------------------------------------------
 
@@ -79,9 +81,9 @@ void Display() {
   conf.screen_angle = 0.0f;
   conf.offline_width = win_width;
   conf.offline_height = win_height;
-  conf.offline_widthstep = conf.offline_width * 3;
-  conf.offline_channel = IMAGE_CHANEL;
-  conf.offline_type = GB_IMAGE_RGB24;
+  conf.offline_widthstep = conf.offline_width*YUV_CHANEL;
+  conf.offline_channel = YUV_CHANEL;
+  conf.offline_type = GB_IMAGE_YUV420;
   conf.offline_angle = 0.0f;
   conf.offline_data = texture_offline_data.data();
   engine.draw_begin(conf);
@@ -96,7 +98,7 @@ void Display() {
   conf.screen_angle = 180.0f;
   engine.draw_begin(conf);
   render_offline.setTextData(
-    conf.offline_width, conf.offline_height, VIDEO_CHANEL, texture_offline_data.data());
+    conf.offline_width, conf.offline_height, YUV_CHANEL, texture_offline_data.data());
   render_offline.draw(conf);
   engine.draw_end(conf);
   //cv::imshow("fuck", frame);
