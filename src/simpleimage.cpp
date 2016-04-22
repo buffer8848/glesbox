@@ -121,9 +121,11 @@ bool SimpleImage::load(const std::string &file) {
 }
 
 bool SimpleImage::draw(const GBConfig& conf) {
-  //GLint viewport_old_[4];
-  //glGetIntegerv(GL_VIEWPORT, viewport_old_);
-  //glViewport(conf.screen_x, conf.screen_y, conf.screen_width, conf.screen_height);
+  GLint viewport_old_[4];
+  glGetIntegerv(GL_VIEWPORT, viewport_old_);
+  //TODO(just for online render)
+  if (conf.screen_width > 0 && conf.screen_height > 0)
+    glViewport(conf.screen_x, conf.screen_y, conf.screen_width, conf.screen_height);
   glEnable(GL_TEXTURE_2D);
   //load shader
   if (core_->shaderProgram_.getProgram() == 0) {
@@ -231,7 +233,7 @@ bool SimpleImage::draw(const GBConfig& conf) {
   core_->shaderProgram_.unbind();
 
   glDisable(GL_TEXTURE_2D);
-  //glViewport(viewport_old_[0], viewport_old_[1], viewport_old_[2], viewport_old_[3]);
+  glViewport(viewport_old_[0], viewport_old_[1], viewport_old_[2], viewport_old_[3]);
 
   return true;
 }

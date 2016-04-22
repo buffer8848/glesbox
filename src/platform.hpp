@@ -8,10 +8,10 @@
 
 #if defined(WIN32) || defined(_WIN32)
 #include <windows.h>
+#include "glstub.hpp"
 #include "GLES2/gl2.h"
 #include "GLES2/gl2ext.h"
 #include "EGL/egl.h"
-#include "glstub.hpp"
 #pragma comment(lib, "libGLESv2.lib")
 #pragma comment(lib, "libEGL.lib")
 #pragma comment(lib, "libyuv.lib")

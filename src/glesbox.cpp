@@ -8,7 +8,7 @@
 #include "libyuv.h"
 
 #include "platform.hpp"
-#include "SimpleImage.hpp"
+#include "simpleimage.hpp"
 
 //-------------------------------------------------------------------------------------------------
 namespace libgb {
@@ -91,21 +91,17 @@ bool GlesBox::draw_begin(const GBConfig& conf) {
   if (need_egl)
     bindEGLContext(width, height, native_windows_id);
   glGetIntegerv(GL_VIEWPORT, core_->viewport_old_);
-  LOGE("1%d, %d, %d, %d.", core_->viewport_old_[0], core_->viewport_old_[1],
-    core_->viewport_old_[2], core_->viewport_old_[3]);
   if (need_fbo)
     bindFrameBuffer(width, height);
-  else {
+  else 
     glViewport(conf.screen_x, conf.screen_y, width, height);
-    LOGE("2%d, %d, %d, %d.", conf.screen_x, conf.screen_y, width, height);
-    }
 
   return true;
 }
 
 bool GlesBox::draw_end(GBConfig& conf) {
   float angle = 0.0f;
-  bool need_egl = false, need_fbo = false, need_swap = false;
+  bool need_egl = false, need_fbo = false, need_online = false;
   switch(conf.type) {
   case GB_DRAW_ONLINE_WITHOUT_OPENGLES_CONTEXT:
     need_egl = true;
@@ -113,13 +109,13 @@ bool GlesBox::draw_end(GBConfig& conf) {
     angle = conf.screen_angle;
     break;
   case GB_DRAW_BOTH_WITH_OPENGLES_CONTEXT:
-    need_swap = true;
+    need_online = true;
   case GB_DRAW_OFFLINE_WITH_OPENGLES_CONTEXT:
     need_fbo = true;
     angle = conf.offline_angle;
     break;
   case GB_DRAW_BOTH_WITHOUT_OPENGLES_CONTEXT:
-    need_swap = true;
+    need_online = true;
   case GB_DRAW_OFFLINE_WITHOUT_OPENGLES_CONTEXT:
     need_fbo = true;
     need_egl = true;
@@ -133,8 +129,9 @@ bool GlesBox::draw_end(GBConfig& conf) {
     //read from GPU and do image translation
     const uint8_t *image = readFromGPU();
     unbindFrameBuffer();
+    
     glViewport(conf.screen_x, conf.screen_y, conf.screen_width, conf.screen_height);
-    if (need_swap)
+    if (need_online)
       swap(conf.screen_angle + angle + 180.0f);
 
     switch(conf.offline_type) {

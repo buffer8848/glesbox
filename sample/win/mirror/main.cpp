@@ -56,7 +56,7 @@ bool InitializeOpenGL(int argc, char** argv) {
 
 bool InitializeSDK() {
   texture_data.resize(video_width * video_height * VIDEO_CHANEL);
-  texture_offline_data.resize(win_width * win_height * IMAGE_CHANEL);
+  texture_offline_data.resize(win_width * win_height * VIDEO_CHANEL);
   return true;
 }
 
