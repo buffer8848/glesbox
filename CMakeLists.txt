@@ -1,7 +1,7 @@
 #----------------------------------------------------------------------------------------------------------------------
-#  Root CMake file for avatarlib
+#  Root CMake file for glesbox
 #
-#  Copyright (c) 2015 Intel NDG
+#  Copyright (c) 2016 xxx
 #
 #  binfeix.li@intel.com 2015/07/20 v1.0
 #

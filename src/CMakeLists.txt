@@ -1,0 +1,67 @@
+# gluebox library module script
+
+SET(LIBRARY_STATIC_NAME "gluebox_static")
+SET(LIBRARY_SHARED_NAME "gluebox_shared")
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+
+IF(WIN32)
+  ADD_DEFINITIONS(-D_CRT_SECURE_NO_WARNINGS -D_WINDOWS -D_ITERATOR_DEBUG_LEVEL=0 -D_DLL_EXPORTS)
+  SET(PLATFORM X86)
+  SET(PLATFORM_STRING "win")
+  include_directories(${PROJECT_SOURCE_DIR}/tools/angle/include/)
+  link_directories(${PROJECT_SOURCE_DIR}/tools/angle/libs/)
+  SET(LIBRARYS libEGL libGLESv2)
+ELSEIF(ANDROID)
+  ENABLE_LANGUAGE(ASM)
+  ADD_DEFINITIONS(-D_ANDROID -D__NEON__ -D__ARM_NEON__)
+  SET(LIBRARYS -lm -llog -ljnigraphics -lEGL -lGLESv2)
+  if (${ANDROID_ABI} MATCHES "^(x86)+")
+    set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/libs/x86)
+    SET(PLATFORM_STRING "android/x86")
+  elseif (${ANDROID_ABI} MATCHES "^(armeabi)+")
+    set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/libs/armeabi-v7a)
+    SET(PLATFORM_STRING "android/armeabi-v7a")
+  else()
+    set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/libs)
+    SET(PLATFORM_STRING "android/armeabi")
+  endif()
+ELSEIF(IOS)
+  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+  ENABLE_LANGUAGE(ASM)
+  ADD_DEFINITIONS(-D_IOS -D__NEON__ -D__ARM_NEON__)
+  SET(LIBRARYS ${LIBRARYS} -lm)
+  SET(PLATFORM_STRING "ios")
+  set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/libs/)
+  include_directories(${PROJECT_SOURCE_DIR}/tools/egl_mac/include/)
+  file(GLOB PROJECT_SRC_M "${PROJECT_SOURCE_DIR}/tools/egl_mac/src/*.m")
+ELSEIF(JS)
+  ADD_DEFINITIONS(-D_LINUX -D__linux__ -DSUPPORTED_SERVER)
+  SET(LIBRARYS ${LIBRARYS} -lrt)
+  SET(PLATFORM_STRING "linux")
+ELSEIF(UNIX)
+  SET(PLATFORM_STRING "linux")
+ENDIF()
+
+message(STATUS "------------------------facialmask LIB--------------------")
+file(GLOB_RECURSE PROJECT_SRC_CPP LIST_DIRECTORIES FALSE "${PROJECT_SOURCE_PATH}/*.cpp")
+file(GLOB_RECURSE PROJECT_SRC_C LIST_DIRECTORIES FALSE "${PROJECT_SOURCE_PATH}/*.c")
+
+include_directories(
+  ${PROJECT_SOURCE_DIR}/src/
+  ${PROJECT_SOURCE_DIR}/include/
+  ${PROJECT_SOURCE_DIR}/tools/libyuv/include/
+  ${PROJECT_SOURCE_DIR}/tools/libjpeg/src/
+)
+
+link_directories(
+  ${PROJECT_SOURCE_DIR}/libs/${PLATFORM_STRING}/
+  ${PROJECT_SOURCE_DIR}/tools/libjpeg/lib/${PLATFORM_STRING}/
+  ${PROJECT_SOURCE_DIR}/tools/libyuv/lib/${PLATFORM_STRING}/
+)
+
+set(LIBRARYS ${LIBRARYS} libyuv)
+
+add_library(${LIBRARY_STATIC_NAME} STATIC ${PROJECT_SRC_CPP} ${PROJECT_SRC_C} ${PROJECT_SRC_M})
+target_link_libraries(${LIBRARY_STATIC_NAME} ${LIBRARYS})
+add_library(${LIBRARY_SHARED_NAME} SHARED ${PROJECT_SRC_CPP} ${PROJECT_SRC_C} ${PROJECT_SRC_M})
+target_link_libraries(${LIBRARY_SHARED_NAME} ${LIBRARYS})
