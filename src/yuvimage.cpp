@@ -86,7 +86,7 @@ void YuvImage::reset() {
 
 void YuvImage::setTextData(
   uint32_t width, uint32_t height, uint8_t chanel, const uint8_t *data) {
-  auto size = width * height * chanel * sizeof(uint8_t) * 3 / 2;
+  auto size = width * height * sizeof(uint8_t) * 3 / 2;
   core_->update_text = true;
   if (core_->texture_data.empty())
     core_->texture_data.resize(size);
