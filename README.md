@@ -20,7 +20,7 @@ glesbox
  - see build/cmake4*.sh
 
 ## License
-  MIT
+ - MIT
 
 ## Example usage
     
