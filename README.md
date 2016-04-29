@@ -19,6 +19,9 @@ glesbox
 ## Build
  - see build/cmake4*.sh
 
+## License
+  MIT
+
 ## Example usage
     
 
