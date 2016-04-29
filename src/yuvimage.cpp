@@ -44,6 +44,7 @@ struct YuvImage::core {
   std::vector<GLuint> textureids_;
   GLuint vert_vboid_;
   GLuint texc_vboid_;
+  GLuint trig_vboid_;
   ShaderProgram shaderProgram_;
 
   bool update_text;
@@ -56,6 +57,7 @@ struct YuvImage::core {
   std::vector<uint8_t> texture_data;
   std::vector<float> vert_data;
   std::vector<float> texc_data;
+  std::vector<uint32_t> trig_data;
 
   core() : vert_vboid_(0), texc_vboid_(0), texture_width_(0),
     texture_height_(0), texture_chanel_(0), triangle_size_(0),
@@ -71,6 +73,9 @@ struct YuvImage::core {
     if (texc_vboid_ != 0)
       glDeleteBuffers(1, &texc_vboid_);
     texc_vboid_ = 0;
+    if (trig_vboid_ != 0)
+      glDeleteBuffers(1, &trig_vboid_);
+    trig_vboid_ = 0;
   }
 };
 
@@ -115,6 +120,12 @@ void YuvImage::setTexcData(const std::vector<float> &data) {
 
 void YuvImage::setTriangleSize(uint32_t size) {
   core_->triangle_size_ = size;
+}
+
+void YuvImage::setTrigData(const std::vector<uint32_t> &data) {
+  core_->triangle_size_ = data.size();
+  core_->trig_data.resize(core_->triangle_size_);
+  core_->trig_data = data;
 }
 
 bool YuvImage::load(const std::string &file) {
