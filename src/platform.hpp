@@ -29,11 +29,6 @@
 #include <sys/time.h>
 #include <unistd.h> 
 #include <fcntl.h>
-#include <string.h>
-#include <memory.h>
-#include "GLES2/gl2.h"
-#include "GLES2/gl2ext.h"
-#include "EGL/egl.h"
 #endif
 
 //-------------------------------------------------------------------------------------------------
