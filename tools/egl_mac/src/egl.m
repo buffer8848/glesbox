@@ -880,8 +880,8 @@ EGLBoolean eglMakeCurrent(EGLDisplay dpy, EGLSurface draw, EGLSurface read, EGLC
   AEGLSurface *surface = (AEGLSurface *)draw;
   surface->context = context;
   surface->renderBufferTarget = (GL_RENDERBUFFER);
-  GLKView *glview = (GLKView *)surface->glView;
-  glview.context = context->context;
+  //GLKView *glview = (GLKView *)surface->glView;
+  //glview.context = context->context;
   
   [EAGLContext setCurrentContext:context->context];
   if (surface->framebuffer != 0) {
