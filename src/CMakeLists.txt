@@ -1,7 +1,7 @@
 # gluebox library module script
 
-SET(LIBRARY_STATIC_NAME "gluebox_static")
-SET(LIBRARY_SHARED_NAME "gluebox_shared")
+SET(LIBRARY_STATIC_NAME "gb_static")
+SET(LIBRARY_SHARED_NAME "gb_shared")
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 
 IF(WIN32)
