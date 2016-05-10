@@ -5,6 +5,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "glesbox", "glesbox.vcxproj"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mirror", "..\..\..\sample\win\mirror\mirror.vcxproj", "{D747B01D-116B-4033-8ED8-C514BFD7A1D8}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mirror2", "..\..\..\sample\win\mirror2\mirror2.vcxproj", "{3B7FEC20-39BF-4875-A114-52020AB794F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -19,6 +21,10 @@ Global
 		{D747B01D-116B-4033-8ED8-C514BFD7A1D8}.Debug|Win32.Build.0 = Debug|Win32
 		{D747B01D-116B-4033-8ED8-C514BFD7A1D8}.Release|Win32.ActiveCfg = Release|Win32
 		{D747B01D-116B-4033-8ED8-C514BFD7A1D8}.Release|Win32.Build.0 = Release|Win32
+		{3B7FEC20-39BF-4875-A114-52020AB794F7}.Debug|Win32.ActiveCfg = Debug|Win32
+		{3B7FEC20-39BF-4875-A114-52020AB794F7}.Debug|Win32.Build.0 = Debug|Win32
+		{3B7FEC20-39BF-4875-A114-52020AB794F7}.Release|Win32.ActiveCfg = Release|Win32
+		{3B7FEC20-39BF-4875-A114-52020AB794F7}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
