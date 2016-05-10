@@ -4,6 +4,8 @@ glesbox
   GBL(Opengles Box Library for native GUI on windows, linux, android, iOS etc)
   
   GBL is not a render engine, just a simple EGL wrapper for quickly integrating opengles code on multi-platform without no opengl env.
+  
+  We use it in our VR & AR products.
 
 ## keywords
  - support online render(render in screen directly) and offline render(render on texture and output into an image)
