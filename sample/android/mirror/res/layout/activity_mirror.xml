@@ -1,0 +1,23 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.buffer.mirror.MirrorActivity"
+    tools:ignore="MergeRootFrame" >
+
+    <com.buffer.mirror.CameraView
+        android:id="@+id/cameraView"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" />
+
+    <com.buffer.mirror.MirrorSurfaceView
+        android:id="@+id/MirrorSurfaceView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" />
+
+</RelativeLayout>
