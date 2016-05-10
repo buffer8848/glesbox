@@ -93,7 +93,7 @@ bool GlesBox::draw_begin(const GBConfig& conf) {
   glGetIntegerv(GL_VIEWPORT, core_->viewport_old_);
   if (need_fbo)
     bindFrameBuffer(width, height);
-  else if (width > 0 && height > 0)
+  else 
     glViewport(conf.screen_x, conf.screen_y, width, height);
 
   return true;
@@ -130,8 +130,7 @@ bool GlesBox::draw_end(GBConfig& conf) {
     const uint8_t *image = readFromGPU();
     unbindFrameBuffer();
     
-    if (conf.screen_width > 0 && conf.screen_height > 0)
-      glViewport(conf.screen_x, conf.screen_y, conf.screen_width, conf.screen_height);
+    glViewport(conf.screen_x, conf.screen_y, conf.screen_width, conf.screen_height);
     if (need_online)
       swap(conf.screen_angle + angle + 180.0f);
 

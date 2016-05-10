@@ -34,7 +34,6 @@ struct SimpleImage::core {
   GLuint textureid_;
   GLuint vert_vboid_;
   GLuint texc_vboid_;
-  GLuint trig_vboid_;
   ShaderProgram shaderProgram_;
 
   bool update_text;
@@ -47,11 +46,10 @@ struct SimpleImage::core {
   std::vector<uint8_t> texture_data;
   std::vector<float> vert_data;
   std::vector<float> texc_data;
-  std::vector<uint32_t> trig_data;
 
   core() : guest_textid_(false), textureid_(0), vert_vboid_(0), texc_vboid_(0),
     texture_width_(0), texture_height_(0), texture_chanel_(0), triangle_size_(0),
-    update_text(false), update_vert(false), update_texc(false), trig_vboid_(0) {
+    update_text(false), update_vert(false), update_texc(false) {
   }
   ~core() {
     if(!guest_textid_ && textureid_ != 0)
@@ -63,9 +61,6 @@ struct SimpleImage::core {
     if (texc_vboid_ != 0)
       glDeleteBuffers(1, &texc_vboid_);
     texc_vboid_ = 0;
-    if (trig_vboid_ != 0)
-      glDeleteBuffers(1, &trig_vboid_);
-    trig_vboid_ = 0;
   }
 };
 
@@ -95,8 +90,7 @@ void SimpleImage::setTextData(
     core_->texture_data.resize(size);
   if (core_->texture_width_ != width || core_->texture_height_ != height ||
     core_->texture_chanel_ != chanel) {
-    if (glDeleteTextures != nullptr)
-      glDeleteTextures(1, &core_->textureid_);
+    glDeleteTextures(1, &core_->textureid_);
     core_->textureid_ = 0;
   }
   memcpy(core_->texture_data.data(), data, size);
@@ -119,12 +113,6 @@ void SimpleImage::setTexcData(const std::vector<float> &data) {
 
 void SimpleImage::setTriangleSize(uint32_t size) {
   core_->triangle_size_ = size;
-}
-
-void SimpleImage::setTrigData(const std::vector<uint32_t> &data) {
-  core_->triangle_size_ = data.size();
-  core_->trig_data.resize(core_->triangle_size_);
-  core_->trig_data = data;
 }
 
 bool SimpleImage::load(const std::string &file) {
@@ -163,7 +151,7 @@ bool SimpleImage::draw(const GBConfig& conf) {
     glTexImage2D(GL_TEXTURE_2D, 0, text_draw_type, core_->texture_width_, core_->texture_height_,
       0, text_draw_type, GL_UNSIGNED_BYTE, core_->texture_data.data());
     //std::swap(texture_data, std::vector<uint8_t>());
-    auto tmp = std::move(core_->texture_data); //release the static image
+    std::move(core_->texture_data); //release the static image
   } else if (core_->update_text) {
     glBindTexture(GL_TEXTURE_2D, core_->textureid_);
     glTexSubImage2D (GL_TEXTURE_2D, 0, 0, 0, core_->texture_width_, core_->texture_height_,
@@ -171,13 +159,13 @@ bool SimpleImage::draw(const GBConfig& conf) {
   }
   core_->update_text = false;
 
-  //load verture, texcoord, triangle to GPU
+  //load verture, texcoord to GPU
   if (core_->texc_vboid_ == 0) {
     glGenBuffers(1, &core_->texc_vboid_);
     if (core_->update_texc) {
       glBindBuffer(GL_ARRAY_BUFFER, core_->texc_vboid_);
       glBufferData(GL_ARRAY_BUFFER, core_->texc_data.size()*sizeof(core_->texc_data[0]),
-        core_->texc_data.data(), GL_STATIC_DRAW);
+        core_->texc_data.data(), GL_DYNAMIC_DRAW);
     } else {
       const GLfloat texcoord_array[] = {
         0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0
@@ -185,6 +173,7 @@ bool SimpleImage::draw(const GBConfig& conf) {
       glBindBuffer(GL_ARRAY_BUFFER, core_->texc_vboid_);
       glBufferData(GL_ARRAY_BUFFER, sizeof(texcoord_array), texcoord_array, GL_STATIC_DRAW);
     }
+    
   } else if (core_->update_texc) {
     glBindBuffer(GL_ARRAY_BUFFER, core_->texc_vboid_);
     glBufferSubData(GL_ARRAY_BUFFER, 0, core_->texc_data.size()*sizeof(core_->texc_data[0]),
@@ -197,7 +186,7 @@ bool SimpleImage::draw(const GBConfig& conf) {
     if (core_->update_vert) {
       glBindBuffer(GL_ARRAY_BUFFER, core_->vert_vboid_);
       glBufferData(GL_ARRAY_BUFFER, core_->vert_data.size()*sizeof(core_->vert_data[0]),
-        core_->vert_data.data(), GL_STATIC_DRAW);
+        core_->vert_data.data(), GL_DYNAMIC_DRAW);
     } else {
       const GLfloat vertex_array[] = {
         -1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, -1.0, 0.0, -1.0, -1.0, 0.0
@@ -212,17 +201,9 @@ bool SimpleImage::draw(const GBConfig& conf) {
   }
   core_->update_vert = false;
 
-  if (!core_->trig_data.empty() && core_->trig_vboid_ == 0) {
-    glGenBuffers(1, &core_->trig_vboid_);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, core_->trig_vboid_);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, core_->trig_data.size()*sizeof(core_->trig_data[0]),
-      core_->trig_data.data(), GL_STATIC_DRAW);
-    auto tmp = std::move(core_->trig_data); //release 
-  }
-
   //model_view_project, rotate on aixs because 2d render
   auto angle = conf.offline_angle > 0.0 ? conf.offline_angle : conf.screen_angle;
-  auto radian = angle * PI/ 180.0f;
+  auto radian = angle* PI/ 180.0f;
   float projection[] = { 
     static_cast<float>(cos(radian)), static_cast<float>(-sin(radian)), 0.0f, 0.0f,
     static_cast<float>(sin(radian)), static_cast<float>(cos(radian)), 0.0f, 0.0f,
@@ -243,15 +224,10 @@ bool SimpleImage::draw(const GBConfig& conf) {
   GLuint a_texturecoord = core_->shaderProgram_.GetAttribLocation("a_texturecoord");
   glEnableVertexAttribArray(a_texturecoord);
   glVertexAttribPointer(a_texturecoord, 2, GL_FLOAT, GL_FALSE, 0, 0);
-  if (core_->trig_vboid_ != 0) {
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, core_->trig_vboid_);
-    glDrawElements(GL_TRIANGLE_STRIP, core_->triangle_size_, GL_UNSIGNED_INT, 0);
-  } else {
-    if (core_->triangle_size_ > 0)
-      glDrawArrays(GL_TRIANGLES, 0, core_->triangle_size_);
-    else
-      glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-  }
+  if (core_->triangle_size_ > 0)
+    glDrawArrays(GL_TRIANGLES, 0, core_->triangle_size_);
+  else
+    glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
   glDisableVertexAttribArray(a_position);
   glDisableVertexAttribArray(a_texturecoord);
   glBindBuffer(GL_ARRAY_BUFFER, 0);

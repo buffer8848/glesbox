@@ -24,7 +24,6 @@ public:
   void setTextData(uint32_t width, uint32_t height, uint8_t chanel, const uint8_t *data);
   void setVertData(const std::vector<float> &data);
   void setTexcData(const std::vector<float> &data);
-  void setTrigData(const std::vector<uint32_t> &data);
   void setTriangleSize(uint32_t size);
 
 private:
