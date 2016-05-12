@@ -10,7 +10,6 @@
 #import <OpenGLES/EAGLDrawable.h>
 #import <OpenGLES/ES2/glext.h>
 #import <QuartzCore/QuartzCore.h>
-#import <GLKit/GLKit.h>
 
 #import <UIKit/UIKit.h>
 
