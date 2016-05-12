@@ -7,32 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		777355B01CE46ACE00ADD556 /* libgb_caller.mm in Sources */ = {isa = PBXBuildFile; fileRef = 777355AC1CE46ACE00ADD556 /* libgb_caller.mm */; };
-		777355B11CE46ACE00ADD556 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777355AD1CE46ACE00ADD556 /* ViewController.swift */; };
-		777355B21CE46ACE00ADD556 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777355AF1CE46ACE00ADD556 /* AppDelegate.swift */; };
-		777355B51CE46AE100ADD556 /* CameraHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 777355B41CE46AE100ADD556 /* CameraHelper.mm */; };
-		777355B91CE46B1300ADD556 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 777355B71CE46B1300ADD556 /* Assets.xcassets */; };
-		777355BA1CE46B1300ADD556 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 777355B81CE46B1300ADD556 /* Info.plist */; };
-		777355BF1CE46B1B00ADD556 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 777355BB1CE46B1B00ADD556 /* LaunchScreen.storyboard */; };
-		777355C01CE46B1B00ADD556 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 777355BD1CE46B1B00ADD556 /* Main.storyboard */; };
 		777355E71CE46FCB00ADD556 /* libgb_static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 777355E61CE46FCB00ADD556 /* libgb_static.a */; };
+		777355EA1CE476E600ADD556 /* CameraHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 777355E91CE476E600ADD556 /* CameraHelper.mm */; };
+		777355F11CE4770800ADD556 /* libgb_caller.mm in Sources */ = {isa = PBXBuildFile; fileRef = 777355EB1CE4770800ADD556 /* libgb_caller.mm */; };
+		777355F21CE4770800ADD556 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777355EC1CE4770800ADD556 /* ViewController.swift */; };
+		777355F31CE4770800ADD556 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777355EE1CE4770800ADD556 /* AppDelegate.swift */; };
+		777355F41CE4770800ADD556 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 777355EF1CE4770800ADD556 /* Assets.xcassets */; };
+		777355F51CE4770800ADD556 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 777355F01CE4770800ADD556 /* Info.plist */; };
+		777355FA1CE4770F00ADD556 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 777355F61CE4770F00ADD556 /* LaunchScreen.storyboard */; };
+		777355FB1CE4770F00ADD556 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 777355F81CE4770F00ADD556 /* Main.storyboard */; };
 		779D60861C50CCE200724403 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 779D60851C50CCE200724403 /* GLKit.framework */; };
 		779D60881C50CCEA00724403 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 779D60871C50CCEA00724403 /* OpenGLES.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		777355AC1CE46ACE00ADD556 /* libgb_caller.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = libgb_caller.mm; path = mirror/libgb_caller.mm; sourceTree = SOURCE_ROOT; };
-		777355AD1CE46ACE00ADD556 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = mirror/ViewController.swift; sourceTree = SOURCE_ROOT; };
-		777355AE1CE46ACE00ADD556 /* libgb_caller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = libgb_caller.h; path = mirror/libgb_caller.h; sourceTree = SOURCE_ROOT; };
-		777355AF1CE46ACE00ADD556 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = mirror/AppDelegate.swift; sourceTree = SOURCE_ROOT; };
-		777355B31CE46AE100ADD556 /* CameraHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraHelper.h; path = mirror/CameraHelper/CameraHelper.h; sourceTree = "<group>"; };
-		777355B41CE46AE100ADD556 /* CameraHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CameraHelper.mm; path = mirror/CameraHelper/CameraHelper.mm; sourceTree = "<group>"; };
-		777355B61CE46B0400ADD556 /* mirror-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "mirror-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
-		777355B71CE46B1300ADD556 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = mirror/Assets.xcassets; sourceTree = SOURCE_ROOT; };
-		777355B81CE46B1300ADD556 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = mirror/Info.plist; sourceTree = SOURCE_ROOT; };
-		777355BC1CE46B1B00ADD556 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = mirror/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
-		777355BE1CE46B1B00ADD556 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = mirror/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
 		777355E61CE46FCB00ADD556 /* libgb_static.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgb_static.a; path = ../../../libs/libgb_static.a; sourceTree = "<group>"; };
+		777355E81CE476E600ADD556 /* CameraHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraHelper.h; path = mirror2/CameraHelper/CameraHelper.h; sourceTree = "<group>"; };
+		777355E91CE476E600ADD556 /* CameraHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CameraHelper.mm; path = mirror2/CameraHelper/CameraHelper.mm; sourceTree = "<group>"; };
+		777355EB1CE4770800ADD556 /* libgb_caller.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = libgb_caller.mm; path = mirror2/libgb_caller.mm; sourceTree = SOURCE_ROOT; };
+		777355EC1CE4770800ADD556 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = mirror2/ViewController.swift; sourceTree = SOURCE_ROOT; };
+		777355ED1CE4770800ADD556 /* libgb_caller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = libgb_caller.h; path = mirror2/libgb_caller.h; sourceTree = SOURCE_ROOT; };
+		777355EE1CE4770800ADD556 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = mirror2/AppDelegate.swift; sourceTree = SOURCE_ROOT; };
+		777355EF1CE4770800ADD556 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = mirror2/Assets.xcassets; sourceTree = SOURCE_ROOT; };
+		777355F01CE4770800ADD556 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = mirror2/Info.plist; sourceTree = SOURCE_ROOT; };
+		777355F71CE4770F00ADD556 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = mirror2/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
+		777355F91CE4770F00ADD556 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = mirror2/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
 		779D60401C50CA6900724403 /* mirror.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mirror.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		779D60851C50CCE200724403 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		779D60871C50CCEA00724403 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -73,15 +72,14 @@
 		779D60421C50CA6900724403 /* maskshow */ = {
 			isa = PBXGroup;
 			children = (
-				777355BB1CE46B1B00ADD556 /* LaunchScreen.storyboard */,
-				777355BD1CE46B1B00ADD556 /* Main.storyboard */,
-				777355B71CE46B1300ADD556 /* Assets.xcassets */,
-				777355B81CE46B1300ADD556 /* Info.plist */,
-				777355B61CE46B0400ADD556 /* mirror-Bridging-Header.h */,
-				777355AC1CE46ACE00ADD556 /* libgb_caller.mm */,
-				777355AE1CE46ACE00ADD556 /* libgb_caller.h */,
-				777355AD1CE46ACE00ADD556 /* ViewController.swift */,
-				777355AF1CE46ACE00ADD556 /* AppDelegate.swift */,
+				777355F61CE4770F00ADD556 /* LaunchScreen.storyboard */,
+				777355F81CE4770F00ADD556 /* Main.storyboard */,
+				777355EB1CE4770800ADD556 /* libgb_caller.mm */,
+				777355EC1CE4770800ADD556 /* ViewController.swift */,
+				777355ED1CE4770800ADD556 /* libgb_caller.h */,
+				777355EE1CE4770800ADD556 /* AppDelegate.swift */,
+				777355EF1CE4770800ADD556 /* Assets.xcassets */,
+				777355F01CE4770800ADD556 /* Info.plist */,
 			);
 			path = maskshow;
 			sourceTree = "<group>";
@@ -89,8 +87,8 @@
 		779D60811C50CC6A00724403 /* CameraHelper */ = {
 			isa = PBXGroup;
 			children = (
-				777355B31CE46AE100ADD556 /* CameraHelper.h */,
-				777355B41CE46AE100ADD556 /* CameraHelper.mm */,
+				777355E81CE476E600ADD556 /* CameraHelper.h */,
+				777355E91CE476E600ADD556 /* CameraHelper.mm */,
 			);
 			name = CameraHelper;
 			sourceTree = "<group>";
@@ -141,7 +139,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 779D603B1C50CA6900724403 /* Build configuration list for PBXProject "mirror" */;
+			buildConfigurationList = 779D603B1C50CA6900724403 /* Build configuration list for PBXProject "mirror2" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -164,10 +162,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				777355BF1CE46B1B00ADD556 /* LaunchScreen.storyboard in Resources */,
-				777355BA1CE46B1300ADD556 /* Info.plist in Resources */,
-				777355B91CE46B1300ADD556 /* Assets.xcassets in Resources */,
-				777355C01CE46B1B00ADD556 /* Main.storyboard in Resources */,
+				777355FA1CE4770F00ADD556 /* LaunchScreen.storyboard in Resources */,
+				777355F51CE4770800ADD556 /* Info.plist in Resources */,
+				777355F41CE4770800ADD556 /* Assets.xcassets in Resources */,
+				777355FB1CE4770F00ADD556 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,28 +176,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				777355B51CE46AE100ADD556 /* CameraHelper.mm in Sources */,
-				777355B01CE46ACE00ADD556 /* libgb_caller.mm in Sources */,
-				777355B11CE46ACE00ADD556 /* ViewController.swift in Sources */,
-				777355B21CE46ACE00ADD556 /* AppDelegate.swift in Sources */,
+				777355F31CE4770800ADD556 /* AppDelegate.swift in Sources */,
+				777355F21CE4770800ADD556 /* ViewController.swift in Sources */,
+				777355EA1CE476E600ADD556 /* CameraHelper.mm in Sources */,
+				777355F11CE4770800ADD556 /* libgb_caller.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		777355BB1CE46B1B00ADD556 /* LaunchScreen.storyboard */ = {
+		777355F61CE4770F00ADD556 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				777355BC1CE46B1B00ADD556 /* Base */,
+				777355F71CE4770F00ADD556 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		777355BD1CE46B1B00ADD556 /* Main.storyboard */ = {
+		777355F81CE4770F00ADD556 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				777355BE1CE46B1B00ADD556 /* Base */,
+				777355F91CE4770F00ADD556 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -354,7 +352,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		779D603B1C50CA6900724403 /* Build configuration list for PBXProject "mirror" */ = {
+		779D603B1C50CA6900724403 /* Build configuration list for PBXProject "mirror2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				779D60661C50CA6900724403 /* Debug */,
