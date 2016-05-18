@@ -4,6 +4,8 @@
 #ifndef LIBGB_GLESBOX_H_
 #define LIBGB_GLESBOX_H_
 
+#include <functional>
+
 #include "common.hpp"
 
 //-------------------------------------------------------------------------------------------------
@@ -18,6 +20,8 @@ public:
 
   bool draw_begin(const GBConfig& conf);
   bool draw_end(GBConfig& conf);
+
+  bool update(std::function<bool(GBConfig&)> draw, GBConfig& conf);
 
   bool bindEGLContext(uint32_t width, uint32_t height, uint64_t native_windows_id);
   void unbindEGLContext();

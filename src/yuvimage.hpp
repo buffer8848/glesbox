@@ -11,7 +11,8 @@
 //-------------------------------------------------------------------------------------------------
 namespace libgb {
 
-class YuvImage : private Model {
+class YuvImage {
+DISALLOW_COPY_AND_ASSIGN(YuvImage);
 public:
   YuvImage();
   ~YuvImage();
@@ -26,7 +27,7 @@ public:
   void setTrigData(const std::vector<uint32_t> &data);
   void setTriangleSize(uint32_t size);
 
-private:
+public:
   struct core;
   std::unique_ptr<core> core_;
 };

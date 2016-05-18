@@ -34,9 +34,9 @@ static const char * image_show_fragment_shader_source =
   "highp float y = texture2D(s_texture_y, v_texturecoord).r;\n"
   "highp float u = texture2D(s_texture_u, v_texturecoord).r - 0.5;\n"
   "highp float v = texture2D(s_texture_v, v_texturecoord).r - 0.5;\n"
-  "highp float b = y + 1.402 * v;\n"
+  "highp float r = y + 1.402 * v;\n"
   "highp float g = y - 0.344 * u - 0.714 * v;\n"
-  "highp float r = y + 1.772 * u;\n"
+  "highp float b = y + 1.772 * u;\n"
   "gl_FragColor = vec4(r, g, b, 1.0);\n"
   "}";
 

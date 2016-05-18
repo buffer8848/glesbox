@@ -139,7 +139,7 @@ bool GlesBox::draw_end(GBConfig& conf) {
 
     switch(conf.offline_type) {
     case GB_IMAGE_YUV420:
-      libyuv::ARGBToI420((uint8*)image, core_->width_*4,
+      libyuv::ABGRToI420((uint8*)image, core_->width_*4,
         conf.offline_data, conf.offline_widthstep,
         conf.offline_data + conf.offline_widthstep * conf.offline_height,
         conf.offline_widthstep >> 1,
@@ -168,6 +168,14 @@ bool GlesBox::draw_end(GBConfig& conf) {
     unbindEGLContext();
   glViewport(core_->viewport_old_[0], core_->viewport_old_[1],
     core_->viewport_old_[2], core_->viewport_old_[3]);
+
+  return true;
+}
+
+bool GlesBox::update(std::function<bool(GBConfig&)> draw, GBConfig& conf) {
+  draw_begin(conf);
+  draw(conf);
+  draw_end(conf);
 
   return true;
 }
